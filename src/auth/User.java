@@ -26,7 +26,7 @@ public class User implements Serializable{
     }
 
     public boolean verifyPassword(String pass) {
-        return Arrays.toString(pass.split("")).equals(this.contrasena);
+        return this.contrasena.equals(pass);
     }
 
     public String getUsuario() {
@@ -41,13 +41,8 @@ public class User implements Serializable{
         return email;
     }
     
-    
-    
     @Override
     public String toString() {
         return "User{" + "usuario=" + usuario + ", nombre=" + nombre + ", email=" + email + '}';
     }
-    
-    
-    
 }
