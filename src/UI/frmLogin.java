@@ -5,6 +5,11 @@
  */
 package UI;
 
+import auth.User;
+import auth.Users;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Toled
@@ -115,9 +120,18 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        frmPrincipal principal = new frmPrincipal();
-        this.setVisible(false);
-        principal.setVisible(true);
+        
+        Users users = new Users();
+        String username = this.txtUsuario.getText();
+        String contrasena = Arrays.toString(this.txtContrasena.getPassword());
+        User user = users.existentUser(username);
+        if(user != null) {
+            if(user.verifyPassword(contrasena)) {
+                frmPrincipal principal = new frmPrincipal();
+                this.setVisible(false);
+                principal.setVisible(true);
+            }else JOptionPane.showMessageDialog(this,"Contraseña Incorrecta.");
+        }else JOptionPane.showMessageDialog(this,"Usuario inexistente.");
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed

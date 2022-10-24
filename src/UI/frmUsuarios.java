@@ -7,6 +7,7 @@ package UI;
 
 import auth.User;
 import auth.Users;
+import static auth.Validaciones.validateEmail;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -204,25 +205,29 @@ public class frmUsuarios extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Users users = new Users();
         
-        
-        
         String usuario = this.txtNewUsuername.getText();
         String contraseña = Arrays.toString(this.txtNewPassword.getPassword());
         String nombre = this.txtNewName.getText();
         String email = this.txtNewEmail.getText();
         
+        if(!validateEmail(email)){
+            JOptionPane.showMessageDialog(this,"Email invalido.");
+            return;
+        }
+        
         if(usuario.isBlank() || contraseña.isBlank() || nombre.isBlank() || email.isBlank()){
             JOptionPane.showMessageDialog(this,"Faltan datos.");
+            return;
         }
         
         User newUser = new User(usuario, contraseña, nombre, email);
         
-        if(users.findUser(newUser) == null){
+        if(users.findUser(newUser) == null) {
             users.writeUser(newUser);
-            return;
-        }
-        
-        JOptionPane.showMessageDialog(this,"Ese usuario ya está registrado.","Oops",JOptionPane.ERROR_MESSAGE);
+            this.setVisible(false);
+            frmLogin login = new frmLogin();
+            login.setVisible(true);
+        }else JOptionPane.showMessageDialog(this,"Ese usuario ya está registrado.","Oops",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -232,9 +237,7 @@ public class frmUsuarios extends javax.swing.JFrame {
         List<User> testListasUsuarios = users.readUser();
         if(testListasUsuarios == null) return;
         
-        System.out.println(testListasUsuarios.toString());
-        System.out.println(testListasUsuarios.get(0).verifyPassword("1"));
-        
+        System.out.println(testListasUsuarios.toString());        
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -245,38 +248,7 @@ public class frmUsuarios extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmUsuarios().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
