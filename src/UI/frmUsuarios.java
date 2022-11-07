@@ -7,7 +7,7 @@ package UI;
 
 import auth.User;
 import auth.Users;
-import static auth.Validaciones.validateEmail;
+import static auth.Validaciones.*;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -96,6 +96,11 @@ public class frmUsuarios extends javax.swing.JFrame {
         btnActualizar.setFocusable(false);
         btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnActualizar);
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Home2.png"))); // NOI18N
@@ -206,7 +211,7 @@ public class frmUsuarios extends javax.swing.JFrame {
         Users users = new Users();
         
         String usuario = this.txtNewUsuername.getText();
-        String contraseña = Arrays.toString(this.txtNewPassword.getPassword());
+        String password = Arrays.toString(this.txtNewPassword.getPassword());
         String nombre = this.txtNewName.getText();
         String email = this.txtNewEmail.getText();
         
@@ -215,19 +220,33 @@ public class frmUsuarios extends javax.swing.JFrame {
             return;
         }
         
-        if(usuario.isEmpty() || contraseña.isEmpty() || nombre.isEmpty() || email.isEmpty()){
+        if(!validatePassword(password)){
+            JOptionPane.showMessageDialog(this,"Contraseña invalida.\n Min. 8 caracteres,\n 1 mayúscula,\n 1 minúscula,\n 1 numero,\n y 1 caracter especial");
+            return;
+        }
+        
+        if(usuario.isEmpty() || password.isEmpty() || nombre.isEmpty() || email.isEmpty()){
             JOptionPane.showMessageDialog(this,"Faltan datos.");
             return;
         }
         
-        User newUser = new User(usuario, contraseña, nombre, email);
+        User newUser = new User(usuario, password, nombre, email);
+        
+        if(users.findEmail(newUser) != null) {
+            JOptionPane.showMessageDialog(this,"Ese correo ya está registrado.","Oops",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         if(users.findUser(newUser) == null) {
             users.writeUser(newUser);
             this.setVisible(false);
             frmLogin login = new frmLogin();
             login.setVisible(true);
-        }else JOptionPane.showMessageDialog(this,"Ese usuario ya está registrado.","Oops",JOptionPane.ERROR_MESSAGE);
+        }else JOptionPane.showMessageDialog(this,"El usuario fue registrado.","",JOptionPane.OK_OPTION);
+        
+        
+        
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -244,6 +263,10 @@ public class frmUsuarios extends javax.swing.JFrame {
         Users users = new Users();
         users.deleteUsers();
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments

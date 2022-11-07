@@ -70,6 +70,21 @@ public class Users {
         }
         return null;
     }
+    
+    public User findEmail(User user) {
+        ArrayList<User> allUsers = this.readUser();
+        
+        if(allUsers == null) return null;
+        
+        
+        for (User u : allUsers) {
+            if(u.getEmail().equals(user.getEmail())){
+                return u;
+            }
+        }
+        return null;
+    }
+    
     public User existentUser(String username){
         
         ArrayList<User> allUsers = this.readUser();
