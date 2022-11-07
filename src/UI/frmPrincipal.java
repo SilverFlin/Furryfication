@@ -44,6 +44,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1024, 768));
+
+        desktopPane.setFocusCycleRoot(false);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
