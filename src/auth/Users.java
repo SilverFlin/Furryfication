@@ -54,7 +54,16 @@ public class Users {
         } else {
             System.out.println("Failed to delete the file.");
         }
-
+    }
+    public void deleteUser(User userToDelete){
+        ArrayList<User> users = this.readUser();
+        for (int i = 0; i < users.size(); i++) {
+            if(users.get(i).getEmail().equals(userToDelete.getEmail())){
+                users.remove(users.get(i));
+            }
+        }
+        this.deleteUsers();
+        this.addUsers(users);
     }
 
     public User findUser(User user) {
@@ -64,7 +73,7 @@ public class Users {
         
         
         for (User u : allUsers) {
-            if(u.getNombre().equals(user.getNombre())){
+            if(u.getEmail().equals(user.getEmail())){
                 return u;
             }
         }
@@ -96,5 +105,8 @@ public class Users {
         }
         return null;
     }
-    
+
+    private void addUsers(ArrayList<User> users) {
+        for (User user : users) this.writeUser(user);
+    }   
 }
