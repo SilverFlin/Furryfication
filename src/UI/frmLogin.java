@@ -9,8 +9,6 @@ import auth.User;
 import auth.Users;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,7 +20,6 @@ import javax.swing.JOptionPane;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/fondoStarWars.jpg"));
     /**
      * Creates new form rlLogin
      */
@@ -83,7 +80,7 @@ public class frmLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addContainerGap()
                         .addComponent(lblLogo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(128, 128, 128)
@@ -119,7 +116,7 @@ public class frmLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarse)
                     .addComponent(btnIniciarSesion))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
