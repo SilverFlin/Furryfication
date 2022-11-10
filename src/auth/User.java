@@ -39,6 +39,14 @@ public class User implements Serializable{
     public String getEmail() {
         return email;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
     @Override
     public String toString() {

@@ -202,8 +202,6 @@ public class frmUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Users users = new Users();
-        
         String usuario = this.txtNewUsername.getText();
         String password = Arrays.toString(this.txtNewPassword.getPassword());
         String nombre = this.txtNewName.getText();
@@ -214,7 +212,7 @@ public class frmUsuarios extends javax.swing.JFrame {
             return;
         }
         
-        if(!validatePassword(password)){
+        if(!validatePassword(password) && txtNewPassword.isEnabled()){
             JOptionPane.showMessageDialog(this,"Contraseña invalida.\n Min. 8 caracteres,\n 1 mayúscula,\n 1 minúscula,\n 1 numero,\n y 1 caracter especial");
             return;
         }
@@ -232,6 +230,14 @@ public class frmUsuarios extends javax.swing.JFrame {
         }
         
         if(users.findUser(newUser) == null) {
+            
+            if(!txtNewUsername.isEnabled()){
+                User user = users.findByUser(usuario);
+                newUser = user;
+                users.deleteUser(user);
+                newUser.setEmail(email);
+                newUser.setNombre(nombre);
+            }
             users.writeUser(newUser);
             this.setVisible(false);
             frmLogin login = new frmLogin();
@@ -252,9 +258,6 @@ public class frmUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-//        Users users = new Users();
-//        users.deleteUsers();
-        
         String rawUser = JOptionPane.showInputDialog("Ingresa tu usuario:");
         User user = users.existentUser(rawUser);
         if(user == null){
@@ -281,7 +284,31 @@ public class frmUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        String rawUser = JOptionPane.showInputDialog("Ingresa tu usuario:");
+        User user = users.existentUser(rawUser);
+        if(user == null){
+            JOptionPane.showMessageDialog(this,"El usuario no existe.","",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Ingresa la contraseña:");
+        JPasswordField pass = new JPasswordField(10);
+        panel.add(label);
+        panel.add(pass);
+        String[] options = new String[]{"OK", "Cancelar"};
+        int option = JOptionPane.showOptionDialog(null, panel, "",
+                JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[1]);
+        if(option != 0) return;
+        char[] password = pass.getPassword();
+        if (user.verifyPassword(Arrays.toString(password))){
+            txtNewUsername.setText(user.getUsuario());
+            txtNewUsername.setEnabled(false);
+            txtNewPassword.setText("********");
+            txtNewPassword.setEnabled(false);
+            txtNewName.setText(user.getNombre());
+            txtNewEmail.setText(user.getEmail());
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**

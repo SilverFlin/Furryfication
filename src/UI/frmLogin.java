@@ -151,7 +151,7 @@ public class frmLogin extends javax.swing.JFrame {
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
        frmUsuarios usuarios = new frmUsuarios();
        this.setVisible(false);
-        usuarios.setVisible(true);
+       usuarios.setVisible(true);
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
