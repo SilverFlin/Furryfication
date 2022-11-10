@@ -20,6 +20,8 @@ public class Videojuego {
 
         frmLogin login = new frmLogin();
         login.setVisible(true);
+        
     }
+    
     
 }

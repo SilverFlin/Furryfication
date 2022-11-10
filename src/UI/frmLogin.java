@@ -13,6 +13,7 @@ import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import videojuego.App;
 
 /**
  *
@@ -131,9 +132,13 @@ public class frmLogin extends javax.swing.JFrame {
         User user = users.existentUser(username);
         if(user != null) {
             if(user.verifyPassword(contrasena)) {
-                frmPrincipal principal = new frmPrincipal();
+                
+                
+                App.start();
                 this.setVisible(false);
-                principal.setVisible(true);
+                
+//                frmPrincipal principal = new frmPrincipal();
+//                principal.setVisible(true);
             }else JOptionPane.showMessageDialog(this,"Contraseña Incorrecta.");
         }else JOptionPane.showMessageDialog(this,"Usuario inexistente.");
     }//GEN-LAST:event_btnIniciarSesionActionPerformed

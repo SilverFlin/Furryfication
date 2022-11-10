@@ -7,6 +7,9 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.security.Principal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -18,7 +21,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form frmPrincipal
-     * SilverFlin1!
+        * SilverFlin1!
      */
     public frmPrincipal() {
         initComponents();
@@ -26,6 +29,15 @@ public class frmPrincipal extends javax.swing.JFrame {
 	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/fondoStarWars2.jpg")));
 	add(background);
 	background.setLayout(new FlowLayout());
+        
+        while (true) {            
+            this.repaint();
+            try{
+                Thread.sleep(10);
+            }catch(InterruptedException e){
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE,null,e);
+            }
+        }
         
     }
 
