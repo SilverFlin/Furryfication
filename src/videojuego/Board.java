@@ -65,7 +65,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // give the player points for collecting coins
         collectCoins();
         nextLv();
-        rotateCoins();
 
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
@@ -99,7 +98,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         for (Coin coin : coins) {
             coin.draw(g, this);
         }
-        T t = new T(COLUMNS/2, 0);
+        Door t = new Door(COLUMNS/2, 0);
         t.draw(g,this);
         player.draw(g, this);
 
@@ -213,26 +212,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     }
     
     private void nextLv() {
-        // allow player to pickup coins
-//        ArrayList<Coin> collectedCoins = new ArrayList<>();
-        T t = new T(COLUMNS / 2, 0);
-
-//        for (Coin coin : coins) {
-        // if the player is on the same tile as a coin, collect it
-        if (player.getPos().equals(t.getPos())) {
-            if(player.currentLv <2){
+        Door door = new Door(COLUMNS / 2, 0);
+        if (player.getPos().equals(door.getPos())) {
+            if (player.currentLv < 2) {
                 player = new Player(player.currentLv + 1);
-            }else{
-                
             }
-            
         }
-//        }
     }
-
-    private void rotateCoins() {
-//        
-
-    }
-
 }

@@ -18,6 +18,8 @@ public class App {
         // pass keyboard inputs to the jpanel
         window.addKeyListener(board);
         
+        
+        
         // don't allow the user to resize the window
         window.setResizable(false);
         // fit the window size around the components (just our jpanel).

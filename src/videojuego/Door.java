@@ -18,13 +18,13 @@ import utils.BufferedImages;
  *
  * @author Toled
  */
-public class T {
+public class Door {
      // image that represents the coin's position on the board
     private BufferedImage image;
     // current position of the coin on the board grid
     private Point pos;
 
-    public T(int x, int y) {
+    public Door(int x, int y) {
         // load the assets
         loadImage();
 
