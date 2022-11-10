@@ -8,8 +8,11 @@ package UI;
 import auth.User;
 import auth.Users;
 import static auth.Validaciones.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +30,15 @@ public class frmUsuarios extends javax.swing.JFrame {
     Users users = new Users();
     public frmUsuarios() {
         initComponents();
+        setLayout(new BorderLayout());
+	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/sable.png")));
+        JLabel background2=new JLabel(new ImageIcon(getClass().getResource("/img/sable.png")));
+	add(background);
+        jToolBar1.setLayout(new BorderLayout());
+        jToolBar1.add(background2);
+	background.setLayout(new FlowLayout());
+        
+        
     }
 
     /**
@@ -55,8 +67,6 @@ public class frmUsuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-
-        jToolBar1.setRollover(true);
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Windows_Silver.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
