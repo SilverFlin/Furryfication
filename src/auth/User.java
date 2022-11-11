@@ -23,7 +23,7 @@ public class User implements Serializable{
         this.nombre = nombre;
         this.email = email;
     }
-
+    
     public boolean verifyPassword(String pass) {
         return this.contrasena.equals(pass);
     }
@@ -52,4 +52,6 @@ public class User implements Serializable{
     public String toString() {
         return "User{" + "usuario=" + usuario + ", nombre=" + nombre + ", email=" + email + '}';
     }
+    
+    
 }

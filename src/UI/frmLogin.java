@@ -138,22 +138,26 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        
+     
         Users users = new Users();
         String username = this.txtUsuario.getText();
         String contrasena = Arrays.toString(this.txtContrasena.getPassword());
         User user = users.existentUser(username);
         if(user != null) {
             if(user.verifyPassword(contrasena)) {
-                
-                
-                App.start();
+               
+                frmMenu menu = new frmMenu();
                 this.setVisible(false);
+                menu.setVisible(true);
+              
                 
 //                frmPrincipal principal = new frmPrincipal();
 //                principal.setVisible(true);
             }else JOptionPane.showMessageDialog(this,"Contraseña Incorrecta.");
-        }else JOptionPane.showMessageDialog(this,"Usuario inexistente.");
+        } else
+            JOptionPane.showMessageDialog(this, "Usuario inexistente.");
+        
+        
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed

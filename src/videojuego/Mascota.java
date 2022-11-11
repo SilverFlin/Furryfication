@@ -1,11 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package videojuego;
 
-import auth.User;
-import java.awt.event.KeyEvent;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -18,10 +22,12 @@ import utils.BufferedImages;
 import static videojuego.Board.COLUMNS;
 import static videojuego.Board.ROWS;
 
-public class Player {
-
-//    User user;
-    Mascota mascota; 
+/**
+ *
+ * @author hoshi
+ */
+public class Mascota {
+  
     // image that represents the player's position on the board
     private BufferedImage image;
     // current position of the player on the board grid
@@ -31,7 +37,7 @@ public class Player {
     
     public int currentLv;
 
-    public Player(int currentLv) {
+    public Mascota(int currentLv) {
         // load the assets
         loadImage();
 
@@ -77,7 +83,6 @@ public class Player {
             pos.translate(0, -1);
             image = ImageIO.read(new File("src/img/icon.png"));
             image = BufferedImages.resize(image, 50, 50);
-            
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/caminar.mp3").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
