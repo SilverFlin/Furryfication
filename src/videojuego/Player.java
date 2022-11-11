@@ -38,7 +38,9 @@ public class Player {
 
     private void loadImage() {
         try {
-            image = ImageIO.read(new File("src/img/mascota.png"));
+            // you can use just the filename if the image file is in your
+            // project folder, otherwise you need to provide the file path.
+            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
             image = BufferedImages.resize(image, 50, 50);
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
@@ -59,7 +61,7 @@ public class Player {
         
         if (key == KeyEvent.VK_UP) {
             pos.translate(0, -1);
-            image = ImageIO.read(new File("src/img/icon.png"));
+            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
             image = BufferedImages.resize(image, 50, 50);
             
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
@@ -71,7 +73,7 @@ public class Player {
         }
         if (key == KeyEvent.VK_RIGHT) {
             pos.translate(1, 0);
-            image = ImageIO.read(new File("src/img/Recycle_Bin_Empty.png"));
+            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
             image = BufferedImages.resize(image, 50, 50);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
@@ -80,7 +82,7 @@ public class Player {
         }
         if (key == KeyEvent.VK_DOWN) {
             pos.translate(0, 1);
-            image = ImageIO.read(new File("src/img/icon.png"));
+            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
             image = BufferedImages.resize(image, 50, 50);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
@@ -89,7 +91,7 @@ public class Player {
         }
         if (key == KeyEvent.VK_LEFT) {
             pos.translate(-1, 0);
-            image = ImageIO.read(new File("src/img/r2d2.png"));
+            image = ImageIO.read(new File("src/img/PersonajePrincipal1.png"));
             image = BufferedImages.resize(image, 50, 50);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();

@@ -1,11 +1,13 @@
 package videojuego;
 
+import java.applet.AudioClip;
 import static UI.frmLogin.currentUser;
 import auth.User;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -32,6 +34,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private Player player;
     private Mascota pet;
     private ArrayList<Coin> coins;
+    
+    
+    
 
     public Board() {
         setPreferredSize(new Dimension(TILE_SIZE * COLUMNS, TILE_SIZE * ROWS));

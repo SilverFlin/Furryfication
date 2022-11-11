@@ -29,10 +29,10 @@ public class frmMenu extends javax.swing.JFrame {
         setTitle("Menu Principal");
         initComponents();
         setLayout(new BorderLayout());
-	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/fondoStarWars.jpg")));
+	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/menu1.png")));
 	add(background);
 	background.setLayout(new FlowLayout());
-        setSize(676,506);
+        setSize(676,550);
     }
 
     /**
@@ -50,21 +50,22 @@ public class frmMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnComenzar.setText("COMENZAR");
+        btnComenzar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/comenzar 2@4x.png"))); // NOI18N
         btnComenzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComenzarActionPerformed(evt);
             }
         });
 
-        btnContinuar.setText("CONTINUAR");
+        btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/continuar@4x.png"))); // NOI18N
         btnContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContinuarActionPerformed(evt);
             }
         });
 
-        btnApagar.setText("APAGAR");
+        btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salir@4x.png"))); // NOI18N
+        btnApagar.setToolTipText("");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
@@ -75,27 +76,26 @@ public class frmMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(454, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(380, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(btnApagar))
-                        .addComponent(btnContinuar))
-                    .addComponent(btnComenzar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(52, 52, 52))
+                    .addComponent(btnContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnComenzar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)))
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(btnComenzar)
-                .addGap(42, 42, 42)
-                .addComponent(btnContinuar)
-                .addGap(50, 50, 50)
-                .addComponent(btnApagar)
-                .addContainerGap(59, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(187, Short.MAX_VALUE)
+                .addComponent(btnComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(147, 147, 147))
         );
 
         pack();
@@ -103,17 +103,15 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
-        // TODO add your handling code here:
         App.start();
         this.setVisible(false);
     }//GEN-LAST:event_btnComenzarActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-//        if(frm)
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-        // TODO add your handling code here:
         frmLogin login = new frmLogin();
         this.setVisible(false);
         login.setVisible(true);
