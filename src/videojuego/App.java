@@ -1,10 +1,12 @@
 package videojuego;
 
+import auth.Users;
 import javax.swing.*;
 
 public class App {
 
     public static JFrame window;
+    public static Users users = new Users();
     private static void initWindow() {
         // create a window frame and set the title in the toolbar
         window = new JFrame("Furryfication");

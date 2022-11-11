@@ -1,6 +1,7 @@
 package videojuego;
 
 import static UI.frmLogin.currentUser;
+import auth.User;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import progress.Progress;
 import progress.Progresses;
+import static videojuego.App.users;
 import static videojuego.App.window;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
@@ -117,10 +119,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        if (e.getKeyCode() == KeyEvent.VK_Q){
-//            saveGame();
-//            window.dispose();
-//        }
+        if (e.getKeyCode() == KeyEvent.VK_Q){
+            saveGame();
+            window.dispose();
+            System.exit(0);
+        }
 
         
         try {
@@ -237,11 +240,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     }
     
     private void saveGame(){
-        Progresses progresses = new Progresses();
-        Progress progress = new Progress(currentUser,this, pet, coins, player);
-        
-//        progresses.writeProgress(progress);
-//        currentUser.addProgress(progress);
-//        System.out.println(progresses.readProgress());
+        currentUser.setTopScore(player.getScore());
+        User user = users.findByUser(currentUser.getUsuario());
+        users.deleteUser(user);
+        users.writeUser(currentUser);
     }
 }
