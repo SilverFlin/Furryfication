@@ -103,7 +103,8 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
-        // TODO add your handling code here:
+        App.start();
+        this.setVisible(false);
     }//GEN-LAST:event_btnComenzarActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
@@ -111,7 +112,9 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-        // TODO add your handling code here:
+        frmLogin login = new frmLogin();
+        this.setVisible(false);
+        login.setVisible(true);
     }//GEN-LAST:event_btnApagarActionPerformed
 
 
