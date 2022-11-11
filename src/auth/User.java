@@ -6,6 +6,8 @@
 package auth;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import progress.Progress;
 
 /**
  *
@@ -16,12 +18,21 @@ public class User implements Serializable{
     private String contrasena;
     private String nombre;
     private String email;
+    private ArrayList<Progress> progress;
 
     public User(String usuario, String contrasena, String nombre, String email) {
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.nombre = nombre;
         this.email = email;
+        progress = new ArrayList<>();
+    }
+    
+    public void addProgress(Progress progress){
+        Users users = new Users();
+        users.deleteUser(this);
+        this.progress.add(progress);
+        users.writeUser(this);
     }
     
     public boolean verifyPassword(String pass) {

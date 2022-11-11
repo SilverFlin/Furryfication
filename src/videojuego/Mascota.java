@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -34,25 +36,23 @@ public class Mascota {
     private Point pos;
     // keep track of the player's score
     private int score;
+    private Player player;
     
-    public int currentLv;
 
-    public Mascota(int currentLv) {
+    public Mascota(Player player) {
         // load the assets
         loadImage();
-
+        this.player = player;
         // initialize the state
-        pos = new Point( COLUMNS /2,  ROWS);
+        pos = new Point( player.getPos().x+1,  player.getPos().y - 1);
         score = 0;
-        this.currentLv = currentLv;
-//        user.getUsuario();
     }
 
     private void loadImage() {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
-            image = ImageIO.read(new File("src/img/mascota.png"));
+            image = ImageIO.read(new File("src/img/Chokis.png"));
             image = BufferedImages.resize(image, 50, 50);
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
@@ -72,54 +72,35 @@ public class Mascota {
         );
     }
     
-    public void keyPressed(KeyEvent e) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+    public void move(KeyEvent e) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         // every keyboard get has a certain code. get the value of that code from the
         // keyboard event so that we can compare it to KeyEvent constants
         int key = e.getKeyCode();
+//        if(pos.x == player.pos.x && pos.y == player.pos.y)pos.translate(0, -1);
+        System.out.println(pos + " " + player.getPos());
         
         // depending on which arrow key was pressed, we're going to move the player by
         // one whole tile for this input
-        if (key == KeyEvent.VK_UP) {
-            pos.translate(0, -1);
-            image = ImageIO.read(new File("src/img/icon.png"));
+        if (key == KeyEvent.VK_UP)    pos.translate(0, -1);
+        if (key == KeyEvent.VK_RIGHT) pos.translate(1, 0);
+        if (key == KeyEvent.VK_DOWN)  pos.translate(0, 1);
+        if (key == KeyEvent.VK_LEFT)  pos.translate(-1, 0);
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            image = ImageIO.read(new File("src/img/sable.png"));
             image = BufferedImages.resize(image, 50, 50);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/caminar.mp3").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-            
-            
         }
-        if (key == KeyEvent.VK_RIGHT) {
-            pos.translate(1, 0);
-            image = ImageIO.read(new File("src/img/Recycle_Bin_Empty.png"));
-            image = BufferedImages.resize(image, 50, 50);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        }
-        if (key == KeyEvent.VK_DOWN) {
-            pos.translate(0, 1);
-            image = ImageIO.read(new File("src/img/icon.png"));
-            image = BufferedImages.resize(image, 50, 50);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        }
-        if (key == KeyEvent.VK_LEFT) {
-            pos.translate(-1, 0);
-            image = ImageIO.read(new File("src/img/r2d2.png"));
-            image = BufferedImages.resize(image, 50, 50);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        }
-        
          
     }
+    
+     public void lightsOff(){
+        try {
+            image = ImageIO.read(new File("src/img/chokis.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Mascota.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            image = BufferedImages.resize(image, 50, 50);
+        }  
+     }
 
     public void tick() {
         // this gets called once every tick, before the repainting process happens.
@@ -137,18 +118,6 @@ public class Mascota {
         } else if (pos.y >= Board.ROWS) {
             pos.y = Board.ROWS - 1;
         }
-    }
-
-    public String getScore() {
-        return String.valueOf(score);
-    }
-    
-//    public String getUserName(User user){
-//        return user.getUsuario();
-//    }
-
-    public void addScore(int amount) {
-        score += amount;
     }
 
     public Point getPos() {
