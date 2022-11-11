@@ -4,11 +4,15 @@ import static UI.frmLogin.currentUser;
 import auth.User;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -55,6 +59,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         timer = new Timer(DELAY, this);
         
         timer.start();
+        
+        AudioInputStream audioInputStream;
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/carlin_boring.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(200);
+        } catch (UnsupportedAudioFileException | IOException|LineUnavailableException ex) {
+            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
     }
 
     @Override
