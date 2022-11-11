@@ -8,6 +8,8 @@ import java.awt.image.ImageObserver;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,6 +17,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import utils.BufferedImages;
+import utils.PlaySound;
 import static videojuego.Board.COLUMNS;
 import static videojuego.Board.ROWS;
 
@@ -23,33 +26,38 @@ public class Player {
 //    User user;
     Mascota mascota; 
     private BufferedImage image;
+    private BufferedImage playerL;
+    private BufferedImage playerR;
+    private BufferedImage currImg;
     private Point pos;
     private int score;
     public int currentLv;
 
     public Player(int currentLv) {
-        loadImage();
-
-        pos = new Point( COLUMNS /2,  ROWS);
-        score = 0;
-        this.currentLv = currentLv;
-//        user.getUsuario();
+            loadImage();
+            pos = new Point( COLUMNS /2,  ROWS);
+            score = 0;
+            this.currentLv = currentLv;
+            
+         try {   
+            playerR = ImageIO.read(new File("src/img/PersonajePrincipall.png"));
+            playerR = BufferedImages.resize(playerR, 50, 50);
+            playerL = ImageIO.read(new File("src/img/PersonajePrincipal11.png"));
+            playerL = BufferedImages.resize(playerL, 50, 50);
+            currImg = playerR;
+        } catch (IOException ex) {
+            Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void loadImage() {
-        try {
-            // you can use just the filename if the image file is in your
-            // project folder, otherwise you need to provide the file path.
-            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
-            image = BufferedImages.resize(image, 50, 50);
-        } catch (IOException exc) {
-            System.out.println("Error opening image file: " + exc.getMessage());
-        }
+            currImg = playerR;
+
     }
 
     public void draw(Graphics g, ImageObserver observer) {
         g.drawImage(
-            image, 
+            currImg, 
             pos.x * Board.TILE_SIZE, 
             pos.y * Board.TILE_SIZE, 
             observer
@@ -61,42 +69,29 @@ public class Player {
         
         if (key == KeyEvent.VK_UP) {
             pos.translate(0, -1);
-            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
-            image = BufferedImages.resize(image, 50, 50);
+            currImg = playerR;
             
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-            
+           PlaySound.play("src/img/steps.wav");
             
         }
         if (key == KeyEvent.VK_RIGHT) {
             pos.translate(1, 0);
-            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
-            image = BufferedImages.resize(image, 50, 50);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
+            currImg = playerR;
+            PlaySound.play("src/img/steps.wav");
         }
         if (key == KeyEvent.VK_DOWN) {
             pos.translate(0, 1);
-            image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
-            image = BufferedImages.resize(image, 50, 50);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
+            currImg = playerL;
+            PlaySound.play("src/img/steps.wav");
         }
         if (key == KeyEvent.VK_LEFT) {
             pos.translate(-1, 0);
-            image = ImageIO.read(new File("src/img/PersonajePrincipal1.png"));
-            image = BufferedImages.resize(image, 50, 50);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
+            currImg = playerL;
+            PlaySound.play("src/img/steps.wav");
+//            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/steps.wav").getAbsoluteFile());
+//            Clip clip = AudioSystem.getClip();
+//            clip.open(audioInputStream);
+//            clip.start();
         }
         
         

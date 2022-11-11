@@ -1,13 +1,11 @@
 package videojuego;
 
-import java.applet.AudioClip;
 import static UI.frmLogin.currentUser;
 import auth.User;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -18,8 +16,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import progress.Progress;
-import progress.Progresses;
+import utils.PlaySound;
 import static videojuego.App.users;
 import static videojuego.App.window;
 
@@ -51,7 +48,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         
         AudioInputStream audioInputStream;
         try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/carlin_boring.wav").getAbsoluteFile());
+            audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bgMusic.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(200);
@@ -66,8 +63,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         player.tick();
         pet.tick();
 
-        collectCoins();
-        nextLv();
+        try {
+            collectCoins();
+            nextLv();
+        } catch (LineUnavailableException|IOException|UnsupportedAudioFileException ex) {
+            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+        }
         repaint();
     }
 
@@ -78,10 +79,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         ImageIcon imagenFondo;
         switch (player.currentLv) {
             case 1:
-                imagenFondo = new ImageIcon(getClass().getResource("/img/fondoStarWars.jpg"));
+                imagenFondo = new ImageIcon(getClass().getResource("/img/Level_0.png"));
+                
                 break;
             case 2:
-                imagenFondo = new ImageIcon(getClass().getResource("/img/fondoStarWars2.jpg"));
+                imagenFondo = new ImageIcon(getClass().getResource("/img/Level_1.png"));
                 break;
             default:
                 return;
@@ -166,23 +168,41 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         return coinList;
     }
 
-    private void collectCoins() {
+    private void collectCoins() throws LineUnavailableException, IOException,UnsupportedAudioFileException{
         ArrayList<Coin> collectedCoins = new ArrayList<>();
         for (Coin coin : coins) {
             if (player.getPos().equals(coin.getPos())) {
                 player.addScore(100);
                 collectedCoins.add(coin);
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/coin.wav").getAbsoluteFile());
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(audioInputStream);
+                    clip.start();
             }
         }
         coins.removeAll(collectedCoins);
     }
     
-    private void nextLv() {
+    private void nextLv() throws LineUnavailableException, IOException,UnsupportedAudioFileException {
         Door door = new Door(COLUMNS / 2, 0);
         if (player.getPos().equals(door.getPos())) {
             if (player.currentLv < 2) {
-                player = new Player(player.currentLv + 1);
-                pet = new Mascota(player);
+                    player = new Player(player.currentLv + 1);
+                    pet = new Mascota(player);
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/nextLv.wav").getAbsoluteFile());
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(audioInputStream);
+                    clip.start();
+            }else{
+                saveGame();
+                PlaySound.play("src/img/gameover.wav");
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                window.dispose();
+                System.exit(0);
             }
         }
     }

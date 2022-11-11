@@ -25,7 +25,9 @@ import utils.BufferedImages;
  */
 public class Mascota {
   
-    private BufferedImage image;
+    private BufferedImage petImg;
+    private BufferedImage swordImg;
+    private BufferedImage currImg;
     private Point pos;
     private Player player;
     
@@ -34,20 +36,25 @@ public class Mascota {
         loadImage();
         this.player = player;
         pos = new Point( player.getPos().x+1,  player.getPos().y - 1);
+        
+        try {
+            petImg = ImageIO.read(new File("src/img/icon.png"));
+            petImg = BufferedImages.resize(petImg, 50, 50);
+            swordImg = ImageIO.read(new File("src/img/sword.png"));
+            swordImg = BufferedImages.resize(swordImg, 50, 50);
+        } catch (IOException ex) {
+            Logger.getLogger(Mascota.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     private void loadImage() {
-        try {
-            image = ImageIO.read(new File("src/img/Chokis.png"));
-            image = BufferedImages.resize(image, 50, 50);
-        } catch (IOException exc) {
-            System.out.println("Error opening image file: " + exc.getMessage());
-        }
+            this.currImg = petImg;
     }
 
     public void draw(Graphics g, ImageObserver observer) {
         g.drawImage(
-            image, 
+            currImg, 
             pos.x * Board.TILE_SIZE, 
             pos.y * Board.TILE_SIZE, 
             observer
@@ -62,19 +69,13 @@ public class Mascota {
         if (key == KeyEvent.VK_DOWN)  pos.translate(0, 1);
         if (key == KeyEvent.VK_LEFT)  pos.translate(-1, 0);
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            image = ImageIO.read(new File("src/img/sable.png"));
-            image = BufferedImages.resize(image, 50, 50);
+            currImg = swordImg;
         }
          
     }
     
      public void lightsOff(){
-        try {
-            image = ImageIO.read(new File("src/img/chokis.png"));
-            image = BufferedImages.resize(image, 50, 50);
-        } catch (IOException ex) {
-            Logger.getLogger(Mascota.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        currImg = petImg;
      }
 
     public void tick() {

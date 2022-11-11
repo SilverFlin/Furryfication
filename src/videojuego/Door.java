@@ -30,7 +30,7 @@ public class Door {
 
     private void loadImage() {
         try {
-            image = ImageIO.read(new File("src/img/Error.png"));
+            image = ImageIO.read(new File("src/img/door.png"));
             image = BufferedImages.resize(image, 50, 50);
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
