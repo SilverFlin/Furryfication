@@ -1,10 +1,12 @@
 package videojuego;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -35,6 +37,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     // objects that appear on the game board
     private Player player;
     private ArrayList<Coin> coins;
+    
+    
+    
 
     public Board() {
         // set the game board size

@@ -27,7 +27,7 @@ public class frmLogin extends javax.swing.JFrame {
     public frmLogin() {
         initComponents();
         setLayout(new BorderLayout());
-	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/fondoStarWars.jpg")));
+	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/descarga.png")));
 	add(background);
 	background.setLayout(new FlowLayout());
     }

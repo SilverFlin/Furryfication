@@ -29,10 +29,10 @@ public class frmMenu extends javax.swing.JFrame {
         setTitle("Menu Principal");
         initComponents();
         setLayout(new BorderLayout());
-	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/fondoStarWars.jpg")));
+	JLabel background=new JLabel(new ImageIcon(getClass().getResource("/img/menu1.png")));
 	add(background);
 	background.setLayout(new FlowLayout());
-        setSize(676,506);
+        setSize(676,550);
     }
 
     /**
