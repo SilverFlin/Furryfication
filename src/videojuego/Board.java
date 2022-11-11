@@ -1,10 +1,7 @@
 package videojuego;
 
-<<<<<<< HEAD
 import java.applet.AudioClip;
-=======
 import static UI.frmLogin.currentUser;
->>>>>>> 362c418063fdc1a33b4f2c9dcb81a302c69443e3
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
