@@ -78,7 +78,7 @@ public class Player {
             image = ImageIO.read(new File("src/img/PersonajePrincipal.png"));
             image = BufferedImages.resize(image, 50, 50);
             
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/caminar.mp3").getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/img/bark.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -113,7 +113,7 @@ public class Player {
             clip.start();
         }
         
-         
+        
     }
 
     public void tick() {

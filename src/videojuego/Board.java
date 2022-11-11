@@ -1,21 +1,24 @@
 package videojuego;
 
+<<<<<<< HEAD
 import java.applet.AudioClip;
+=======
+import static UI.frmLogin.currentUser;
+>>>>>>> 362c418063fdc1a33b4f2c9dcb81a302c69443e3
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import utils.BufferedImages;
+import progress.Progress;
+import progress.Progresses;
+import static videojuego.App.window;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
@@ -36,6 +39,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 //    private Timer timerCoins;
     // objects that appear on the game board
     private Player player;
+    private Mascota pet;
     private ArrayList<Coin> coins;
     
     
@@ -44,12 +48,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public Board() {
         // set the game board size
         setPreferredSize(new Dimension(TILE_SIZE * COLUMNS, TILE_SIZE * ROWS));
-        // set the game board background color
-//        setBackground(new Color(232, 232, 232));
-
+        
+        
+            
 
         // initialize the game state
         player = new Player(1);
+        pet  = new Mascota( player);
         coins = populateCoins();
 
         // this timer will call the actionPerformed() method every DELAY ms
@@ -66,6 +71,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         // prevent the player from disappearing off the board
         player.tick();
+        pet.tick();
 
         // give the player points for collecting coins
         collectCoins();
@@ -103,9 +109,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         for (Coin coin : coins) {
             coin.draw(g, this);
         }
-        Door t = new Door(COLUMNS/2, 0);
-        t.draw(g,this);
+        Door door = new Door(COLUMNS/2, 0);
+        door.draw(g,this);
         player.draw(g, this);
+        pet.draw(g, this);
 
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
@@ -118,9 +125,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+//        if (e.getKeyCode() == KeyEvent.VK_Q){
+//            saveGame();
+//            window.dispose();
+//        }
+
+        
         try {
             // react to key down events
             player.keyPressed(e);
+            pet.move(e);
+            
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
             Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -128,8 +143,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // react to key up events
-    }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            pet.lightsOff();
+        }
+    } 
 
     private void drawBackground(Graphics g) {
         // draw a checkered background
@@ -152,7 +169,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private void drawScore(Graphics g) {
         // set the text to be displayed
-        String text = "$" + player.getScore();
+        String score = "$" + player.getScore();
+        String username = currentUser.getUsuario();
         // we need to cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(
@@ -174,12 +192,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // here I've sized it to be the entire bottom row of board tiles
         Rectangle rect = new Rectangle(0, TILE_SIZE * (ROWS - 1), TILE_SIZE * COLUMNS, TILE_SIZE);
         // determine the x coordinate for the text
-        int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+        int x = rect.x + (rect.width - metrics.stringWidth(score)) / 2;
         // determine the y coordinate for the text
         // (note we add the ascent, as in java 2d 0 is top of the screen)
         int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
         // draw the string
-        g2d.drawString(text, x, y);
+        g2d.drawString(username + " - " + score, x -50, y);
     }
 
     private ArrayList<Coin> populateCoins() {
@@ -221,7 +239,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         if (player.getPos().equals(door.getPos())) {
             if (player.currentLv < 2) {
                 player = new Player(player.currentLv + 1);
+                pet = new Mascota(player);
             }
         }
+    }
+    
+    private void saveGame(){
+        Progresses progresses = new Progresses();
+        Progress progress = new Progress(currentUser,this, pet, coins, player);
+        
+//        progresses.writeProgress(progress);
+//        currentUser.addProgress(progress);
+//        System.out.println(progresses.readProgress());
     }
 }

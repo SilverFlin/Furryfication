@@ -24,6 +24,9 @@ public class frmLogin extends javax.swing.JFrame {
     /**
      * Creates new form rlLogin
      */
+    
+    public static User currentUser;
+    
     public frmLogin() {
         initComponents();
         setLayout(new BorderLayout());
@@ -145,7 +148,7 @@ public class frmLogin extends javax.swing.JFrame {
         User user = users.existentUser(username);
         if(user != null) {
             if(user.verifyPassword(contrasena)) {
-               
+               currentUser = user;
                 frmMenu menu = new frmMenu();
                 this.setVisible(false);
                 menu.setVisible(true);
