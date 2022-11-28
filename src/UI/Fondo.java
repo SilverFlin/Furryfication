@@ -25,6 +25,7 @@ public class Fondo extends JPanel{
         backgroundImage = ImageIO.read(file);
   }
 
+    @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
 
