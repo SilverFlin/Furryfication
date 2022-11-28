@@ -1,28 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entities;
- 
+
+import static entities.Mob.write;
 import gamepack.Juego;
 import gamepack.Teclado;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.JOptionPane;
-
 import level.Level;
-import level.tiles.Tile;
 
-public class Jugador extends Mob {
-		
+/**
+ *
+ * @author Toled
+ */
+public class Enemigo extends Mob {
+    		
 		
  		//File f=new File("level.txt");
  		//private boolean ghost=false;
@@ -36,7 +37,7 @@ public class Jugador extends Mob {
         long time=System.currentTimeMillis();
         long playtime=System.currentTimeMillis();
         
-        public Jugador(Level level, int x, int y, Teclado input) {
+        public Enemigo(Level level, int x, int y, Teclado input) {
                 super(level, "Player", x, y, 1);
                 this.input = input;
         }

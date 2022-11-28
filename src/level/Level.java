@@ -1,5 +1,6 @@
 package level;
 
+import entities.Enemigo;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,6 +39,7 @@ public class Level
 	public int height;
 	public ArrayList<Entity> entities= new ArrayList<Entity>();
 	public Jugador player;
+        public Enemigo enemigo;
 	//int TimesPlayed=0;
 	public static long KeyTime;
 	public int keyX,keyY;
@@ -84,6 +86,7 @@ public class Level
 		this.playSound();
 		
 		player = new Jugador(this,Juego.plx<<3,Juego.ply<<3, Juego.input);	
+                System.out.println("Level()");
 		this.addEntity(player);
 		
 	}
@@ -98,7 +101,9 @@ public class Level
 				entities.remove(player);
 		Juego.plx=8;Juego.ply=4;
 		player = new Jugador(this,Juego.plx,Juego.ply, Juego.input);
+                enemigo = new Enemigo(this,Juego.plx , Juego.ply + 10,Juego.input);
 		this.addEntity(player);
+                this.addEntity(enemigo);
 			
 	}
 	for(int y=0;y<height;y++){
