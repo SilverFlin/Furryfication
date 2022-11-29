@@ -24,6 +24,7 @@ import gamepack.Juego;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
+import entities.Mascota;
 
 
 
@@ -38,6 +39,7 @@ public class Level
 	public int height;
 	public ArrayList<Entity> entities= new ArrayList<Entity>();
 	public Jugador player;
+        public Mascota mascota;
 	//int TimesPlayed=0;
 	public static long KeyTime;
 	public int keyX,keyY;
@@ -85,7 +87,6 @@ public class Level
 		
 		player = new Jugador(this,Juego.plx<<3,Juego.ply<<3, Juego.input);	
 		this.addEntity(player);
-		
 	}
 	
 	public void generateLevel(){
@@ -99,6 +100,9 @@ public class Level
 		Juego.plx=8;Juego.ply=4;
 		player = new Jugador(this,Juego.plx,Juego.ply, Juego.input);
 		this.addEntity(player);
+                
+                mascota = new Mascota(this,Juego.plx,Juego.ply+5, Juego.input);
+                this.addEntity(mascota);
 			
 	}
 	for(int y=0;y<height;y++){
@@ -231,6 +235,7 @@ public class Level
 		for(Entity e:entities)
 		{
 			e.render(screen);
+                        e.render(screen);
 			
 	}
 	}
@@ -244,7 +249,7 @@ public class Level
 	
 	public void addEntity(Entity entity)
 	{
-		this.entities.add(entity);;
+		this.entities.add(entity);
 	}
 
 
@@ -258,7 +263,7 @@ public class Level
 		int yy=(int)(Math.random()*20)+(int)(Math.random()*20)+(int)(Math.random()*20);
 		int xx1=0;	//(int)(Math.random()*20)+(int)(Math.random()*20)+(int)(Math.random()*20);
 		int xx2=30;
-		if(player.x/8<30)
+		if(player.x/8<30 || mascota.x/8<30)
 			{
 			//System.out.println(player.x/8);
 			xx1=30;
