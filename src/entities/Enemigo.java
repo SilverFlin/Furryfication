@@ -11,6 +11,9 @@ import gamepack.Teclado;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Timer;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -36,9 +39,10 @@ public class Enemigo extends Mob {
         private static float vol=-28;
         long time=System.currentTimeMillis();
         long playtime=System.currentTimeMillis();
+        ArrayList<Integer> queueMoves = new ArrayList<>();
         
         public Enemigo(Level level, int x, int y, Teclado input) {
-                super(level, "Player", x, y, 1);
+                super(level, "Enemigo", x, y, 1);
                 this.input = input;
         }
         
@@ -195,6 +199,14 @@ public class Enemigo extends Mob {
 //                }
 
                 if (input.up.isPressed() && up==0) {
+//                    new java.util.Timer().schedule(
+//                                new java.util.TimerTask() {
+//                            @Override
+//                            public void run() {
+////                                e.tick();
+//                            }
+//                        },3000);
+//                        queueMoves.add(1);
                         ya -= 1;
                         if(mov1!=2 && System.currentTimeMillis()-time>Rtime)
                         {
@@ -215,6 +227,7 @@ public class Enemigo extends Mob {
                 
                 if (input.down.isPressed() && down==0) {
                         ya += 1;
+//                    queueMoves.add(2);
                         if(mov1!=1 && System.currentTimeMillis()-time>Rtime)
                         {
                         	mov1=1;
@@ -233,6 +246,7 @@ public class Enemigo extends Mob {
                 }
                 if (input.left.isPressed() && left==0) {
                         xa -= 1;
+//                        queueMoves.add(3);
                         if(mov1!=6 && System.currentTimeMillis()-time>Rtime)
                         {
                         	mov1=6;
@@ -250,6 +264,7 @@ public class Enemigo extends Mob {
                 }
                 if (input.right.isPressed() && right==0) {
                         xa += 1;
+//                        queueMoves.add(4);
                         if(mov1!=4 && System.currentTimeMillis()-time>Rtime)
                         {
                         	mov1=4;
@@ -265,9 +280,8 @@ public class Enemigo extends Mob {
                         left=1;
                         up=1;
                 }
-                if (!input.up.isPressed() )
-                {
-               	 	left=0;
+                if (!input.up.isPressed() ){
+                    left=0;
                     right=0;
                     down=0;
                 }
@@ -285,32 +299,28 @@ public class Enemigo extends Mob {
                 }
                 if (!input.right.isPressed() )
                 {
-               	 	left=0;
+                    left=0;
                     up=0;
                     down=0;
-                }
- 
-                if (xa != 0 || ya != 0) {
-                	
-                		
-                		move(xa, ya);
-                		Juego.plx=x;
-                		Juego.ply=y;
-                		
-                        isMoving = true;
-                        if(System.currentTimeMillis()-playtime>Rtime && SoundOn)
-                        	{this.playSound();
-                        	 playtime=System.currentTimeMillis();
-                        	}
-                        
-                       
-                } else {
-                        isMoving = false;
-                }
+            }
+
+            if (xa != 0 || ya != 0) {
+                move(xa, ya);
+                Juego.plx = x;
+                Juego.ply = y;
                 
-                  
                 
- 
+                
+                isMoving = true;
+                if (System.currentTimeMillis() - playtime > Rtime && SoundOn) {
+                    this.playSound();
+                    playtime = System.currentTimeMillis();
+                }
+            } else {
+                isMoving = false;
+            }
+
+
         }
  
         public void render(Screen screen) {
@@ -339,7 +349,7 @@ public class Enemigo extends Mob {
                 	if(x<2)
                 		x=2;
                 	if(y<2)
-                		y=2;
+                		y=2;    
                 	y+=7*8;
                     
                 	
@@ -444,7 +454,7 @@ public class Enemigo extends Mob {
                     
                     }
                 if(mov1==5){
-                    xTile = 10;
+                    xTile = 16;
                     yTile = 28;
                     if(Juego.speed>200)
                     {
@@ -465,7 +475,7 @@ public class Enemigo extends Mob {
                     
                     }
                 if(mov1==6){
-                    xTile = 8;
+                    xTile = 18;
                     yTile = 28;
                     if(Juego.speed>200)
                     {
@@ -486,7 +496,7 @@ public class Enemigo extends Mob {
                     
                     }
                 if(mov1==7){
-                    xTile = 10;
+                    xTile = 22;
                     yTile = 28;
                     if(Juego.speed>200)
                     {

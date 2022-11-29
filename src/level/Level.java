@@ -25,6 +25,7 @@ import gamepack.Juego;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
+import java.util.Timer;
 
 
 
@@ -183,10 +184,24 @@ public class Level
 	}
         
 	public void tick(){
-		for(Entity e:entities)
-		{
-			e.tick();
-		}
+		for(Entity e:entities) {
+
+//                    System.out.println(e);
+//                    if (e.getClass() == Enemigo.class) {
+//                        Timer t = new java.util.Timer();
+//                        t.schedule(
+//                                new java.util.TimerTask() {
+//                            @Override
+//                            public synchronized void run() {
+//                                e.tick();
+//                                t.cancel();
+//                            }
+//                        },500);
+//                    } else {
+//                if (e.getClass() != Enemigo.class)
+                    e.tick();                
+            }
+                
 		//System.out.println(Level.vol);
 		
 		if(!MusicOn)

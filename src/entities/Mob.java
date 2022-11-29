@@ -32,7 +32,7 @@ public abstract class Mob extends Entity {
                 this.y = y;
                 this.speed = speed;
                 if(!f.exists())
-            		write=true;
+                write=true;
         }
  
         public void move(int xa, int ya) {
