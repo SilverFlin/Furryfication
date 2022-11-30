@@ -40,7 +40,7 @@ public class Level
 	public int height;
 	public ArrayList<Entity> entities= new ArrayList<Entity>();
 	public Jugador player;
-        public Enemigo enemigo;
+        public static Enemigo enemigo;
 	//int TimesPlayed=0;
 	public static long KeyTime;
 	public int keyX,keyY;
@@ -49,6 +49,8 @@ public class Level
 	static int clipSize;
 	public static boolean MusicOn=true;
 	public static float vol=0;
+            public static boolean moverEnemigo = false;
+
         
 	public static synchronized void playSound() {
 		  new Thread(new Runnable() {
@@ -92,21 +94,31 @@ public class Level
 		
 	}
 	
-	public void generateLevel(){
-	
-	
-	if(Juego.levelNo!=0)
-	{
-	
-		if(entities.contains(player))
-				entities.remove(player);
-		Juego.plx=8;Juego.ply=4;
-		player = new Jugador(this,Juego.plx,Juego.ply, Juego.input);
-                enemigo = new Enemigo(this,Juego.plx , Juego.ply + 10,Juego.input);
-		this.addEntity(player);
-                this.addEntity(enemigo);
-			
-	}
+	public void generateLevel() {
+
+        if (Juego.levelNo != 0) {
+
+            if (entities.contains(player)) {
+                entities.remove(player);
+            }
+            Juego.plx = 8;
+            Juego.ply = 4;
+            player = new Jugador(this, Juego.plx, Juego.ply, Juego.input);
+            enemigo = new Enemigo(this, Juego.plx, Juego.ply, Juego.input);
+            this.addEntity(player);
+            this.addEntity(enemigo);
+            Timer t = new java.util.Timer();
+        t.schedule(
+                new java.util.TimerTask() {
+            @Override
+            public synchronized void run() {
+                
+                moverEnemigo = true;
+                t.cancel();
+            }
+        }, 5000);
+
+        }
 	for(int y=0;y<height;y++){
 		for(int x=0;x<width;x++){
 			tiles[x+y*width]=Tile.STONE.getId();
@@ -199,11 +211,12 @@ public class Level
 //                        },500);
 //                    } else {
 //                if (e.getClass() != Enemigo.class)
-                    e.tick();                
+                e.tick();
             }
-                
-		//System.out.println(Level.vol);
-		
+            if(moverEnemigo)enemigo.startMove();
+
+            //System.out.println(Level.vol);
+
 		if(!MusicOn)
 		{
 			clip.stop();

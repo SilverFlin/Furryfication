@@ -18,11 +18,13 @@ import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import level.Level;
+import static level.Level.enemigo;
 
 /**
  * Estos paquetes son para poder tener varios de los metodos
@@ -72,6 +74,8 @@ public class Juego extends Canvas implements Runnable {
 
     public static double speed = 60D;
     public static double HpressTime;
+    
+
 
     // public Jugador player;
     /**
@@ -191,7 +195,7 @@ public class Juego extends Canvas implements Runnable {
         int frames = 0;
 
         init();
-
+        
         //Esto es para que se ejecute una y otra vez
         //cuando enFuncionamiento se convierta en falso se detendra el juego
         while (running) {
@@ -207,7 +211,7 @@ public class Juego extends Canvas implements Runnable {
             delta += (now - referenciaActualizacion) / nsPerTick;
             referenciaActualizacion = now;
             //boolean shouldRender = true;
-
+            
             while (delta >= 1) {
                 ticks++;
                 try {
