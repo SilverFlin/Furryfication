@@ -1,5 +1,6 @@
 package gamepack;
 
+import entities.Jugador;
 import entities.Mob;
 import gfx.Colores;
 import gfx.GameFont;
@@ -65,6 +66,8 @@ public class Juego extends Canvas implements Runnable {
 
     //Inicio instancias otras clases
     public static Screen screen;
+//    public static Screen screen2;
+    public static Jugador player;
     public static Teclado input;
     public static Level level;
 //    MouseHandler mouseHandler;
@@ -137,6 +140,7 @@ public class Juego extends Canvas implements Runnable {
         }
 
         screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/img/design.png"));
+//        screen2 = new Screen(WIDTH, HEIGHT, new SpriteSheet("/img/spritesheet 1.png"));
 //        mouseHandler = new MouseHandler(this);
         input = new Teclado(this);
         level = new Level(64, 64);
