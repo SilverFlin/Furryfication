@@ -31,6 +31,9 @@ public class User implements Serializable{
         this.topScore = topScore;
     }
     
+    public String getTopScore(){
+        return this.topScore;
+    }
     
     
     public boolean verifyPassword(String pass) {

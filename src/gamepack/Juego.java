@@ -1,6 +1,15 @@
 package gamepack;
 
+
 import entities.Jugador;
+
+import UI.frmLogin;
+import static UI.frmLogin.currentMaxScore;
+import static UI.frmLogin.currentUser;
+import static UI.frmLogin.users;
+import UI.frmMenu;
+import auth.User;
+import auth.Users;
 import entities.Mob;
 import gfx.Colores;
 import gfx.GameFont;
@@ -19,11 +28,13 @@ import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import level.Level;
+import static level.Level.enemigo;
 
 /**
  * Estos paquetes son para poder tener varios de los metodos
@@ -75,6 +86,12 @@ public class Juego extends Canvas implements Runnable {
 
     public static double speed = 60D;
     public static double HpressTime;
+    
+    public User user = currentUser;
+    public static Users users = new Users();
+    private boolean gameOver;
+    
+
 
     // public Jugador player;
     /**
@@ -195,7 +212,7 @@ public class Juego extends Canvas implements Runnable {
         int frames = 0;
 
         init();
-
+        
         //Esto es para que se ejecute una y otra vez
         //cuando enFuncionamiento se convierta en falso se detendra el juego
         while (running) {
@@ -211,7 +228,7 @@ public class Juego extends Canvas implements Runnable {
             delta += (now - referenciaActualizacion) / nsPerTick;
             referenciaActualizacion = now;
             //boolean shouldRender = true;
-
+            
             while (delta >= 1) {
                 ticks++;
                 try {
@@ -235,8 +252,24 @@ public class Juego extends Canvas implements Runnable {
                 frames = 0;
                 ticks = 0;
             }
+            
+            
 
         }
+        
+
+        if (gameOver) {
+            users.deleteUser(currentUser);
+            currentUser.setTopScore(calcHighscore(user.getTopScore()) + "");
+            users.writeUser(currentUser);
+            frame.setVisible(false);
+            level.clip.stop();
+            frmMenu menu = new frmMenu();
+            menu.setVisible(true);
+        }
+
+
+
     }
 
     public void tick() {
@@ -254,16 +287,9 @@ public class Juego extends Canvas implements Runnable {
             levelend = 0;
         }
 
-        if (levelNo > 4) {
-//           int cerrar = JOptionPane.showConfirmDialog
-//                        (null, "Ganaste, ¡¡¡Felicidades!!!");
-           
-           int cerrarJ = JOptionPane.showConfirmDialog(null,"Ganaste",
-                   "¡¡¡Felicidades!!!",JOptionPane.OK_OPTION);
-          
-           if(cerrarJ==0){
-               System.exit(0);
-           }
+        if (levelNo > 1) {
+            gameOver = true;
+            stop();
         }
     }
 
@@ -390,6 +416,17 @@ public class Juego extends Canvas implements Runnable {
         g.dispose();
         bs.show();
 
+    }
+
+    private int calcHighscore(String pastScoreStr) {
+        int highScore = 0;
+        int pastScore = new Integer(pastScoreStr);
+        for (int score : highscore) {
+            highScore += (score / 100) % 60;
+        }
+        
+        return highScore > pastScore ? highScore : pastScore;
+        
     }
 
 }

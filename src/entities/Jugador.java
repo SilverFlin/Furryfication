@@ -5,6 +5,7 @@ import gamepack.Teclado;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
+import java.awt.Rectangle;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -291,7 +292,6 @@ public class Jugador extends Mob {
  
                 if (xa != 0 || ya != 0) {
                 	
-                		
                 		move(xa, ya);
                 		Juego.plx=x;
                 		Juego.ply=y;
@@ -353,19 +353,16 @@ public class Jugador extends Mob {
                 
                 screen.render(xOffset, yOffset, xTile + yTile * 32, colour, 0x00,scale); // upper body part 1
                                                                                                                                                         
-                screen.render(xOffset + modifier, yOffset, (xTile + 1) + yTile * 32,
-                                colour, 0x00,scale); // upper body part 2
+                screen.render(xOffset + modifier, yOffset, (xTile + 1) + yTile * 32,colour, 0x00,scale); // upper body part 2
                 
-                screen.render(xOffset, yOffset + modifier, xTile + (yTile + 1) * 32,
-                		colour, 0x00,scale); // lower body part 1
-                screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1)
-                		+ (yTile + 1) * 32, colour, 0x00,scale); // lower body part 2
+                screen.render(xOffset, yOffset + modifier, xTile + (yTile + 1) * 32,colour, 0x00,scale); // lower body part 1
+                screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1)+ (yTile + 1) * 32, colour, 0x00,scale); // lower body part 2
             	
               
                 }
-                if(mov1==1){
-                	 xTile = 2;
-                     yTile = 28;
+                if (mov1 == 1) {
+                    xTile = 2;
+                    yTile = 28;
                 if(Juego.speed>200)
                 {
                 	 xTile += 12;
@@ -455,12 +452,10 @@ public class Jugador extends Mob {
                     // body
                     // part
                     // 1
-                    screen.render(xOffset + modifier, yOffset, (xTile + 1) + yTile * 32,
-                    		colour, 0x00,scale); // upper body part 2
+                    screen.render(xOffset + modifier, yOffset, (xTile + 1) + yTile * 32, colour, 0x00,scale); // upper body part 2
                     screen.render(xOffset, yOffset + modifier, xTile + (yTile + 1) * 32,
                     		colour, 0x00,scale); // lower body part 1
-                    screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1)
-                    		+ (yTile + 1) * 32, colour, 0x00,scale); // lower body part 2
+                    screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1)+ (yTile + 1) * 32, colour, 0x00,scale); // lower body part 2
                     
                     }
                 if(mov1==6){
@@ -526,5 +521,5 @@ public class Jugador extends Mob {
             	return true;
             return false;
         }
- 
+
 }

@@ -1,5 +1,6 @@
 package level;
 
+import entities.Enemigo;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,6 +26,7 @@ import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
 import entities.Mascota;
+import java.util.Timer;
 
 
 
@@ -40,14 +42,17 @@ public class Level
 	public ArrayList<Entity> entities= new ArrayList<Entity>();
 	public Jugador player;
         public Mascota mascota;
+        public static Enemigo enemigo;
 	//int TimesPlayed=0;
 	public static long KeyTime;
 	public int keyX,keyY;
-	static Clip clip=null;
+	public static Clip clip=null;
 	public boolean dead=false,key=false;
 	static int clipSize;
 	public static boolean MusicOn=true;
 	public static float vol=0;
+        public boolean enemigoActivado;
+
         
 	public static synchronized void playSound() {
 		  new Thread(new Runnable() {
@@ -86,25 +91,36 @@ public class Level
 		this.playSound();
 		
 		player = new Jugador(this,Juego.plx<<3,Juego.ply<<3, Juego.input);	
+                System.out.println("Level()");
 		this.addEntity(player);
 	}
 	
-	public void generateLevel(){
-	
-	
-	if(Juego.levelNo!=0)
-	{
-	
-		if(entities.contains(player))
-				entities.remove(player);
-		Juego.plx=8;Juego.ply=4;
-		player = new Jugador(this,Juego.plx,Juego.ply, Juego.input);
-		this.addEntity(player);
-                
-                mascota = new Mascota(this,Juego.plx,Juego.ply+5, Juego.input);
-                this.addEntity(mascota);
-			
-	}
+
+	public void generateLevel() {
+
+        if (Juego.levelNo != 0) {
+            enemigo.queueMoves.clear();
+            enemigoActivado = false;
+            if (!entities.isEmpty()) entities.clear();
+            
+            Juego.plx = 8;
+            Juego.ply = 4;
+            player = new Jugador(this, Juego.plx, Juego.ply, Juego.input);
+            enemigo = new Enemigo(this, Juego.plx, Juego.ply, Juego.input);
+            mascota = new Mascota(this, Juego.plx, Juego.ply+ 5, Juego.input);
+            this.addEntity(player);
+            this.addEntity(enemigo);
+            this.addEntity(mascota);
+            Timer t = new java.util.Timer();
+            t.schedule(new java.util.TimerTask() {
+                @Override
+                public synchronized void run() {
+                    enemigoActivado = true;
+                    t.cancel();
+                }
+            }, 2500);
+
+        }
 	for(int y=0;y<height;y++){
 		for(int x=0;x<width;x++){
 			tiles[x+y*width]=Tile.STONE.getId();
@@ -182,12 +198,20 @@ public class Level
 	}
         
 	public void tick(){
-		for(Entity e:entities)
-		{
-			e.tick();
-		}
-		//System.out.println(Level.vol);
-		
+		for(Entity e:entities) {
+                e.tick();
+            }
+            if(enemigoActivado) {
+                enemigo.startMove();
+                if (enemigo.getBounds().intersects(player.getBounds())) {
+                    dead = true;
+                    enemigoActivado = false;
+                }
+
+            }
+
+            //System.out.println(Level.vol);
+
 		if(!MusicOn)
 		{
 			clip.stop();
@@ -230,15 +254,16 @@ public class Level
 		
 		
 	}
-	public void renderEntities(Screen screen)
-	{
-		for(Entity e:entities)
-		{
-			e.render(screen);
-                        e.render(screen);
-			
-	}
-	}
+
+        public void renderEntities(Screen screen) {
+        for (Entity e : entities) {
+            if(enemigoActivado && e.getClass() == Enemigo.class){
+                e.render(screen);
+            }else if(e.getClass() != Enemigo.class)e.render(screen);
+            
+
+        }
+    }
 	
 	public Tile getTile(int x,int y)
 	{

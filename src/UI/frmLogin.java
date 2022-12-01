@@ -27,6 +27,8 @@ public class frmLogin extends javax.swing.JFrame {
      */
     
     public static User currentUser;
+    public static String currentMaxScore = "0";
+    public static Users users = new Users();
     
     public frmLogin() {
         initComponents();
@@ -204,7 +206,7 @@ public class frmLogin extends javax.swing.JFrame {
 //        frmReglas reglas = new frmReglas();
 //        this.setVisible(false);
 //        reglas.setVisible(true);
-new Juego().start();
+        new Juego().start();
     }//GEN-LAST:event_btnRulesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
