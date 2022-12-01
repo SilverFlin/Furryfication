@@ -250,14 +250,15 @@ public class Level
 		
 		
 	}
-	public void renderEntities(Screen screen)
-	{
-		for(Entity e:entities)
-		{
-			e.render(screen);
-			
-	}
-	}
+        public void renderEntities(Screen screen) {
+        for (Entity e : entities) {
+            if(enemigoActivado && e.getClass() == Enemigo.class){
+                e.render(screen);
+            }else if(e.getClass() == Jugador.class)e.render(screen);
+            
+
+        }
+    }
 	
 	public Tile getTile(int x,int y)
 	{

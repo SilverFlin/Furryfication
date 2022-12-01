@@ -45,12 +45,11 @@ public class Enemigo extends Mob {
     private final int QUEUE_DOWN = 2;
     private final int QUEUE_LEFT = 3;
     private final int QUEUE_RIGHT = 4;
-    private boolean colision;
 
     public Enemigo(Level level, int x, int y, Teclado input) {
         super(level, "Enemigo", x, y, 1);
         this.input = input;
-        
+
     }
 
     public static synchronized void playSound() {
@@ -62,9 +61,7 @@ public class Enemigo extends Mob {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(Jugador.class.getResourceAsStream("/img/steps.WAV"));
                     clip.open(inputStream);
-                    FloatControl gainControl
-                            = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    // System.out.println(gainControl.getValue());
+                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                     gainControl.setValue(vol);
                     clip.start();
 
@@ -76,7 +73,6 @@ public class Enemigo extends Mob {
     }
 
     public void startMove() {
-//        System.out.println(Arrays.toString(queueMoves.toArray()));
         if (!queueMoves.isEmpty()) {
             switch (queueMoves.remove(0)) {
                 case QUEUE_UP:
@@ -104,9 +100,8 @@ public class Enemigo extends Mob {
         }
         int xa = 0;
         int ya = 0;
-        
+
         if (input.up.isPressed() && up == 0) {
-//            ya -= 1;
             queueMoves.add(QUEUE_UP);
             if (mov1 != 2 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 2;
@@ -121,7 +116,6 @@ public class Enemigo extends Mob {
         }
 
         if (input.down.isPressed() && down == 0) {
-//            ya += 1;
             queueMoves.add(QUEUE_DOWN);
             if (mov1 != 1 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 1;
@@ -136,7 +130,6 @@ public class Enemigo extends Mob {
 
         }
         if (input.left.isPressed() && left == 0) {
-//            xa -= 1;
             queueMoves.add(QUEUE_LEFT);
             if (mov1 != 6 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 6;
@@ -151,7 +144,6 @@ public class Enemigo extends Mob {
             up = 1;
         }
         if (input.right.isPressed() && right == 0) {
-//            xa += 1;
             queueMoves.add(QUEUE_RIGHT);
             if (mov1 != 4 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 4;
@@ -184,20 +176,6 @@ public class Enemigo extends Mob {
             up = 0;
             down = 0;
         }
-
-//        if (xa != 0 || ya != 0) {
-//            move(xa, ya);
-//            Juego.plx = x;
-//            Juego.ply = y;
-//
-//            isMoving = true;
-//            if (System.currentTimeMillis() - playtime > Rtime && SoundOn) {
-//                this.playSound();
-//                playtime = System.currentTimeMillis();
-//            }
-//        } else {
-//            isMoving = false;
-//        }
 
     }
 
@@ -351,11 +329,5 @@ public class Enemigo extends Mob {
 
         return isSolidTile(xa, ya);
     }
-    
-
-
-
-
-
 
 }
