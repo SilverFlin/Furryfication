@@ -96,7 +96,7 @@ public class Enemigo extends Mob {
 
         int Rtime = (int) ((15000) / Juego.speed);
         if (Rtime > 250) {
-            Rtime = 250;  
+            Rtime = 250;
         }
         int xa = 0;
         int ya = 0;
