@@ -5,6 +5,7 @@ import gamepack.Teclado;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
+import java.awt.Rectangle;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -520,5 +521,5 @@ public class Jugador extends Mob {
             	return true;
             return false;
         }
- 
+
 }

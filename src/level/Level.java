@@ -49,7 +49,7 @@ public class Level
 	static int clipSize;
 	public static boolean MusicOn=true;
 	public static float vol=0;
-            public static boolean moverEnemigo;
+        public boolean enemigoActivado;
 
         
 	public static synchronized void playSound() {
@@ -98,7 +98,7 @@ public class Level
 
         if (Juego.levelNo != 0) {
             enemigo.queueMoves.clear();
-            moverEnemigo = false;
+            enemigoActivado = false;
             if (!entities.isEmpty()) entities.clear();
             
             Juego.plx = 8;
@@ -108,12 +108,10 @@ public class Level
             this.addEntity(player);
             this.addEntity(enemigo);
             Timer t = new java.util.Timer();
-            t.schedule(
-                    new java.util.TimerTask() {
+            t.schedule(new java.util.TimerTask() {
                 @Override
                 public synchronized void run() {
-                    
-                    moverEnemigo = true;
+                    enemigoActivado = true;
                     t.cancel();
                 }
             }, 5000);
@@ -199,7 +197,14 @@ public class Level
 		for(Entity e:entities) {
                 e.tick();
             }
-            if(moverEnemigo)enemigo.startMove();
+            if(enemigoActivado) {
+                enemigo.startMove();
+                if (enemigo.getBounds().intersects(player.getBounds())) {
+                    dead = true;
+                    enemigoActivado = false;
+                }
+
+            }
 
             //System.out.println(Level.vol);
 

@@ -1,6 +1,7 @@
 package entities;
  
 import gamepack.Juego;
+import java.awt.Rectangle;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -52,7 +53,11 @@ public abstract class Mob extends Entity {
         }
  
         public abstract boolean hasCollided(int xa, int ya);
-        
+
+        public Rectangle getBounds() {
+            return new Rectangle(x-8, y+8, 8, 8);
+        }
+
         public boolean isSolidTile(int xa,int ya)
         {
         	if(level == null) return false;

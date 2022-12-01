@@ -11,6 +11,7 @@ import gamepack.Teclado;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
@@ -44,10 +45,12 @@ public class Enemigo extends Mob {
     private final int QUEUE_DOWN = 2;
     private final int QUEUE_LEFT = 3;
     private final int QUEUE_RIGHT = 4;
+    private boolean colision;
 
     public Enemigo(Level level, int x, int y, Teclado input) {
         super(level, "Enemigo", x, y, 1);
         this.input = input;
+        
     }
 
     public static synchronized void playSound() {
@@ -101,6 +104,7 @@ public class Enemigo extends Mob {
         }
         int xa = 0;
         int ya = 0;
+        
         if (input.up.isPressed() && up == 0) {
 //            ya -= 1;
             queueMoves.add(QUEUE_UP);
@@ -347,5 +351,11 @@ public class Enemigo extends Mob {
 
         return isSolidTile(xa, ya);
     }
+    
+
+
+
+
+
 
 }
