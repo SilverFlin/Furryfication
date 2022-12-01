@@ -7,12 +7,15 @@ package UI;
 
 import auth.User;
 import auth.Users;
+//Agregado
+import gamepack.Juego;
+//Fin agregado
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import videojuego.App;
+//import videojuego.App;
 
 /**
  *
@@ -103,7 +106,7 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
-        App.start();
+         new Juego().start();
         this.setVisible(false);
     }//GEN-LAST:event_btnComenzarActionPerformed
 

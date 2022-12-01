@@ -104,7 +104,7 @@
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnIniciarSesion" alignment="1" min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="btnRegistrarse" alignment="1" min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
