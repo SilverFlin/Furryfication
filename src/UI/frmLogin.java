@@ -7,6 +7,7 @@ package UI;
 
 import auth.User;
 import auth.Users;
+import gamepack.Juego;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.Arrays;
@@ -200,9 +201,10 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnRulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRulesActionPerformed
-        frmReglas reglas = new frmReglas();
-        this.setVisible(false);
-        reglas.setVisible(true);
+//        frmReglas reglas = new frmReglas();
+//        this.setVisible(false);
+//        reglas.setVisible(true);
+new Juego().start();
     }//GEN-LAST:event_btnRulesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

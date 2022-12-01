@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 
 import level.Level;
 import level.tiles.Tile;
-import sun.applet.Main;
 
 public class Jugador extends Mob {
 		
