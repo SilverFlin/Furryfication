@@ -44,7 +44,7 @@ public class Level
 	//int TimesPlayed=0;
 	public static long KeyTime;
 	public int keyX,keyY;
-	static Clip clip=null;
+	public static Clip clip=null;
 	public boolean dead=false,key=false;
 	static int clipSize;
 	public static boolean MusicOn=true;
@@ -114,7 +114,7 @@ public class Level
                     enemigoActivado = true;
                     t.cancel();
                 }
-            }, 5000);
+            }, 2500);
 
         }
 	for(int y=0;y<height;y++){

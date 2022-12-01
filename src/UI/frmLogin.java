@@ -27,6 +27,8 @@ public class frmLogin extends javax.swing.JFrame {
      */
     
     public static User currentUser;
+    public static String currentMaxScore = "0";
+    public static Users users = new Users();
     
     public frmLogin() {
         initComponents();
