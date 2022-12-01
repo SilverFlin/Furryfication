@@ -49,7 +49,7 @@ public class Level
 	static int clipSize;
 	public static boolean MusicOn=true;
 	public static float vol=0;
-            public static boolean moverEnemigo = false;
+            public static boolean moverEnemigo;
 
         
 	public static synchronized void playSound() {
@@ -97,10 +97,10 @@ public class Level
 	public void generateLevel() {
 
         if (Juego.levelNo != 0) {
-
-            if (entities.contains(player)) {
-                entities.remove(player);
-            }
+            enemigo.queueMoves.clear();
+            moverEnemigo = false;
+            if (!entities.isEmpty()) entities.clear();
+            
             Juego.plx = 8;
             Juego.ply = 4;
             player = new Jugador(this, Juego.plx, Juego.ply, Juego.input);
@@ -108,15 +108,15 @@ public class Level
             this.addEntity(player);
             this.addEntity(enemigo);
             Timer t = new java.util.Timer();
-        t.schedule(
-                new java.util.TimerTask() {
-            @Override
-            public synchronized void run() {
-                
-                moverEnemigo = true;
-                t.cancel();
-            }
-        }, 5000);
+            t.schedule(
+                    new java.util.TimerTask() {
+                @Override
+                public synchronized void run() {
+                    
+                    moverEnemigo = true;
+                    t.cancel();
+                }
+            }, 5000);
 
         }
 	for(int y=0;y<height;y++){
@@ -197,20 +197,6 @@ public class Level
         
 	public void tick(){
 		for(Entity e:entities) {
-
-//                    System.out.println(e);
-//                    if (e.getClass() == Enemigo.class) {
-//                        Timer t = new java.util.Timer();
-//                        t.schedule(
-//                                new java.util.TimerTask() {
-//                            @Override
-//                            public synchronized void run() {
-//                                e.tick();
-//                                t.cancel();
-//                            }
-//                        },500);
-//                    } else {
-//                if (e.getClass() != Enemigo.class)
                 e.tick();
             }
             if(moverEnemigo)enemigo.startMove();

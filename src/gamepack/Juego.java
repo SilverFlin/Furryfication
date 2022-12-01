@@ -255,8 +255,6 @@ public class Juego extends Canvas implements Runnable {
         }
 
         if (levelNo > 4) {
-//           int cerrar = JOptionPane.showConfirmDialog
-//                        (null, "Ganaste, ¡¡¡Felicidades!!!");
            
            int cerrarJ = JOptionPane.showConfirmDialog(null,"Ganaste",
                    "¡¡¡Felicidades!!!",JOptionPane.OK_OPTION);
