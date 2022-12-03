@@ -1,5 +1,6 @@
 package entities;
 
+import entorno.ManejadorEntorno;
 import gamepack.Juego;
 import gamepack.Teclado;
 import gfx.Colores;
@@ -35,6 +36,8 @@ public class Jugador extends Mob {
     private static float vol = -28;
     long time = System.currentTimeMillis();
     long playtime = System.currentTimeMillis();
+//    public  ManejadorEntorno mEntorno = new ManejadorEntorno(Juego);    
+
 
     public Jugador(Level level, int x, int y, Teclado input) {
         super(level, "Player", x, y, 1);

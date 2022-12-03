@@ -11,6 +11,7 @@ import UI.frmMenu;
 import auth.User;
 import auth.Users;
 import entities.Mob;
+import entorno.ManejadorEntorno;
 import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
@@ -20,6 +21,7 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
@@ -55,6 +57,8 @@ public class Juego extends Canvas implements Runnable {
     public static final int SCALE = 4;
     public static final String NAME = "Game";
     public static int plx = 16, ply = 10;
+    public static int currentPlayerX;
+    public static int currentPlayerY;
 
     private JFrame frame;
 
@@ -67,11 +71,9 @@ public class Juego extends Canvas implements Runnable {
     public static double xPresstime;
     public static double ChangeTime = System.currentTimeMillis();
 
-    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
-            BufferedImage.TYPE_INT_RGB);
-    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
-            .getData();
-
+    public static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+     ManejadorEntorno mEntorno = new ManejadorEntorno(this);    
     private int[] colours = new int[6 * 6 * 6];
     public static int highscore[] = new int[102];
 
@@ -90,6 +92,8 @@ public class Juego extends Canvas implements Runnable {
     public User user = currentUser;
     public static Users users = new Users();
     private boolean gameOver;
+    public static BufferStrategy bs;
+    public static Graphics g;
     
 
 
@@ -161,7 +165,8 @@ public class Juego extends Canvas implements Runnable {
 //        mouseHandler = new MouseHandler(this);
         input = new Teclado(this);
         level = new Level(64, 64);
-
+        mEntorno.setup();
+        
         int i = 1;
         File file = new File("hs.maze");
         Scanner sc = null;
@@ -229,10 +234,15 @@ public class Juego extends Canvas implements Runnable {
             referenciaActualizacion = now;
             //boolean shouldRender = true;
             
+//            if(bs != null)renderLight();
+            
+            
             while (delta >= 1) {
                 ticks++;
                 try {
                     tick();
+
+                    
                 } catch (Exception e) {
 
                 }
@@ -274,7 +284,12 @@ public class Juego extends Canvas implements Runnable {
 
     public void tick() {
         tickCount++;
-        level.tick();
+
+        level.tick(this,mEntorno,g);
+//        bs.show();
+
+//        renderLight();
+       
         if (System.currentTimeMillis() - StartTime > 120000 && levelNo > 0 && !IsPaused) {
             level.dead = true;
         }
@@ -287,20 +302,43 @@ public class Juego extends Canvas implements Runnable {
             levelend = 0;
         }
 
-        if (levelNo > 1) {
+        if (levelNo > 3) {
             gameOver = true;
             stop();
         }
+        
+
+        
+        
+    }
+    
+    public  void renderLight() {
+        bs = getBufferStrategy();
+        g = bs.getDrawGraphics();
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        mEntorno.draw((Graphics2D) g, currentPlayerX,currentPlayerY);
+        g.dispose();
+        bs.show();
+
     }
 
     public void render() {
 
-        BufferStrategy bs = getBufferStrategy();
+        bs = getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
             return;
         }
-
+//        if(isLightOn) {
+//            Graphics g = bs.getDrawGraphics();
+//            g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+//            mEntorno.draw((Graphics2D) g);
+//            g.dispose();
+//            bs.show();
+//            System.out.println("render isLightOn");
+//            return;
+//        }
+        
         int xOffset = level.player.x - (screen.width / 2);
         int yOffset = level.player.y - (screen.height / 2);
 
@@ -410,9 +448,11 @@ public class Juego extends Canvas implements Runnable {
             }
         }
 
-                
-        Graphics g = bs.getDrawGraphics();
+        
+        g = bs.getDrawGraphics();
+//        System.out.println("aaa");
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        drawLight();
         g.dispose();
         bs.show();
 
@@ -427,6 +467,10 @@ public class Juego extends Canvas implements Runnable {
         
         return highScore > pastScore ? highScore : pastScore;
         
+    }
+
+    public void drawLight() {
+        mEntorno.draw((Graphics2D) g,currentPlayerX, currentPlayerY);
     }
 
 }

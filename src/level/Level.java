@@ -26,10 +26,17 @@ import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
 import entities.Mascota;
+import entorno.ManejadorEntorno;
+import static gamepack.Juego.bs;
+import static gamepack.Juego.image;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 import java.util.Timer;
 
 public class Level {
 
+//    public  ManejadorEntorno mEntorno = new ManejadorEntorno(this);
     private long playtime = System.currentTimeMillis();
     public static byte[] tiles;
     public static int width;
@@ -47,6 +54,8 @@ public class Level {
     public static boolean MusicOn = true;
     public static float vol = 0;
     public boolean enemigoActivado;
+    
+
 
     public static synchronized void playSound() {
         new Thread(new Runnable() {
@@ -178,7 +187,25 @@ public class Level {
 
     }
 
-    public void tick() {
+    public void tick(Juego juego, ManejadorEntorno mEntorno,Graphics g) {
+//        g.drawImage(image, 0, 0, juego.getWidth(), juego.getHeight(), null);
+//        System.out.println(mEntorno.iluminacion);
+        
+//        g.dispose();
+//        bs.show();
+//        System.out.println(player.x + " " + player.y);
+//        System.out.println(player.y);
+        Juego.currentPlayerX = player.x;
+        Juego.currentPlayerY = player.y;
+        juego.drawLight();
+//        System.out.println(Juego.currentPlayerY);
+//        mEntorno.draw((Graphics2D)g,player.x,player.y);
+//        Graphics g = bs.getDrawGraphics();
+//            g.drawImage(Juego.image, 0, 0, Juego.getWidth(), Juego.getHeight(), null);
+//            mEntorno.draw((Graphics2D) g);
+//            g.dispose();
+//            bs.show();
+//            System.out.println("render isLightOn");
         for (Entity e : entities) {
             e.tick();
         }
@@ -205,8 +232,10 @@ public class Level {
         if (System.currentTimeMillis() - playtime >= clipSize + 10000 && MusicOn) {
             this.playSound();
             playtime = System.currentTimeMillis();
-
         }
+        
+        
+
 
     }
 
