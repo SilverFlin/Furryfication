@@ -33,10 +33,16 @@ public class Teclado implements KeyListener {
     }
 
     //public List<Key> keys=new ArrayList<Key>();
-    public Key up = new Key();
-    public Key down = new Key();
-    public Key left = new Key();
-    public Key right = new Key();
+    public Key upPlayer = new Key();
+    public Key downPlayer = new Key();
+    public Key leftPlayer = new Key();
+    public Key rightPlayer = new Key();
+    public Key upMascota = new Key();
+    public Key downMascota = new Key();
+    public Key leftMascota = new Key();
+    public Key rightMascota = new Key();
+    
+    
     public Key enter = new Key();
     public Key x = new Key();
     public Key q = new Key();
@@ -68,17 +74,35 @@ public class Teclado implements KeyListener {
     }
 
     public void toggleKey(int keyCode, boolean isPressed) {
-        if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-            up.toggle(isPressed);
+        if (keyCode == KeyEvent.VK_UP ) {
+            upPlayer.toggle(isPressed);
         }
-        if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-            down.toggle(isPressed);
+        if( keyCode == KeyEvent.VK_W){
+            upMascota.toggle(isPressed);
         }
-        if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-            left.toggle(isPressed);
+        
+        if (keyCode == KeyEvent.VK_DOWN ) {
+            downPlayer.toggle(isPressed);
         }
-        if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-            right.toggle(isPressed);
+        if( keyCode == KeyEvent.VK_S){
+            downMascota.toggle(isPressed);
+        }
+        
+        
+        if (keyCode == KeyEvent.VK_LEFT ) {
+            leftPlayer.toggle(isPressed);
+        }
+        
+        if(keyCode == KeyEvent.VK_A){
+            leftMascota.toggle(isPressed);
+        }
+        
+        if (keyCode == KeyEvent.VK_RIGHT ) {
+            rightPlayer.toggle(isPressed);
+        }
+        
+        if( keyCode == KeyEvent.VK_D){
+            rightMascota.toggle(isPressed);
         }
         if (keyCode == KeyEvent.VK_ENTER) {
 
@@ -160,10 +184,10 @@ public class Teclado implements KeyListener {
     public void disableButtons() {
         H.pressed = false;
         P.pressed = false;
-        up.pressed = false;
-        down.pressed = false;
-        left.pressed = false;
-        right.pressed = false;
+        upPlayer.pressed = false;
+        downPlayer.pressed = false;
+        leftPlayer.pressed = false;
+        rightPlayer.pressed = false;
         x.pressed = false;
         q.pressed = false;
 // 		z.pressed=false;

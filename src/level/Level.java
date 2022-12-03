@@ -213,7 +213,7 @@ public class Level {
         if (enemigoActivado) {
             enemigo.startMove();
             if (enemigo.getBounds().intersects(player.getBounds())) {
-//                dead = true;
+                dead = true;
                 enemigoActivado = false;
             }
 

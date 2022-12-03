@@ -122,17 +122,15 @@ public class Mascota extends Mob {
             }
             input.Music.pressed = false;
         }
-        
-        if(input.q.isPressed()){            
-            if (Juego.mascotaOn) {
-                Juego.mascotaOn = false;
-            } else {
-                Juego.mascotaOn = true;
-            }
-            input.q.pressed = false;
+
+        if (input.q.isPressed()) {
+            Juego.mascotaOn = true;
+        } else {
+            Juego.mascotaOn = false;
         }
 
-        if (input.P.isPressed() && Juego.levelNo > 0) {
+        if (input.P.isPressed()
+                && Juego.levelNo > 0) {
             double time = System.currentTimeMillis();
             Juego.IsPaused = true;
             for (int i = 0; i < 100; i++) {
@@ -185,18 +183,22 @@ public class Mascota extends Mob {
             return;
         }
 
-        if (System.currentTimeMillis() - Juego.StartTime > 120000 && write) {
+        if (System.currentTimeMillis()
+                - Juego.StartTime > 120000 && write) {
             write = false;
             level.generateLevel();
 
         }
-        if (input.enter.isPressed() && write) {
+
+        if (input.enter.isPressed()
+                && write) {
             write = false;
             Juego.ChangeTime = System.currentTimeMillis();
             Juego.StartTime = System.currentTimeMillis();
             level.generateLevel();
         }
-        if (Juego.levelNo == 0) {
+        if (Juego.levelNo
+                == 0) {
             if (input.enter.isPressed()) {
 
                 Juego.ChangeTime = System.currentTimeMillis();
@@ -219,7 +221,8 @@ public class Mascota extends Mob {
         }
 
         int Rtime = (int) ((15000) / Juego.speed);
-        if (Rtime > 250) {
+        if (Rtime
+                > 250) {
             Rtime = 250;
         }
         int xa = 0;
@@ -239,7 +242,8 @@ public class Mascota extends Mob {
 //                	Juego.speed-=1;
 //                	Juego.xPresstime=System.currentTimeMillis();
 //                }
-        if (input.up.isPressed() && up == 0) {
+        if (input.upMascota.isPressed()
+                && up == 0) {
             ya -= 1;
             if (mov1 != 2 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 2;
@@ -255,7 +259,8 @@ public class Mascota extends Mob {
 
         }
 
-        if (input.down.isPressed() && down == 0) {
+        if (input.downMascota.isPressed()
+                && down == 0) {
             ya += 1;
             if (mov1 != 1 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 1;
@@ -270,7 +275,9 @@ public class Mascota extends Mob {
             up = 1;
 
         }
-        if (input.left.isPressed() && left == 0) {
+
+        if (input.leftMascota.isPressed()
+                && left == 0) {
             xa -= 1;
             if (mov1 != 6 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 6;
@@ -284,7 +291,9 @@ public class Mascota extends Mob {
             right = 1;
             up = 1;
         }
-        if (input.right.isPressed() && right == 0) {
+
+        if (input.rightMascota.isPressed()
+                && right == 0) {
             xa += 1;
             if (mov1 != 4 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 4;
@@ -298,28 +307,33 @@ public class Mascota extends Mob {
             left = 1;
             up = 1;
         }
-        if (!input.up.isPressed()) {
+
+        if (!input.upPlayer.isPressed()) {
             left = 0;
             right = 0;
             down = 0;
         }
-        if (!input.down.isPressed()) {
+
+        if (!input.downPlayer.isPressed()) {
             left = 0;
             right = 0;
             up = 0;
         }
-        if (!input.left.isPressed()) {
+
+        if (!input.leftPlayer.isPressed()) {
             up = 0;
             right = 0;
             down = 0;
         }
-        if (!input.right.isPressed()) {
+
+        if (!input.rightPlayer.isPressed()) {
             left = 0;
             up = 0;
             down = 0;
         }
 
-        if (xa != 0 || ya != 0) {
+        if (xa != 0 || ya
+                != 0) {
 
             move(xa, ya);
             Juego.plx = x;

@@ -392,8 +392,8 @@ public class Juego extends Canvas implements Runnable {
 
         if (levelNo > 0) {
             int x = 0, y = 0;
-            x = level.player.x + (screen.width / 2) - 20;
-            y = level.player.y - (screen.height / 2) + 4;
+            x = level.mascota.x + (screen.width / 2) - 20;
+            y = level.mascota.y - (screen.height / 2) + 4;
             if (x > 62 * 8 - 4) {
                 x = 62 * 8 - 4;
             }
@@ -407,13 +407,13 @@ public class Juego extends Canvas implements Runnable {
                 y = 4;
             }
 
-            if (level.keyX << 3 < level.player.x) {
+            if (level.keyX << 3 < level.mascota.x) {
                 GameFont.render(" +", screen, x, y, Colores.get(-1, -1, -1, 200), 1, 01);
             } else {
                 GameFont.render(" +", screen, x, y, Colores.get(-1, -1, -1, 200), 1);
             }
 
-            if (level.keyY << 3 < level.player.y) {
+            if (level.keyY << 3 < level.mascota.y) {
                 GameFont.render("-", screen, x, y, Colores.get(-1, -1, -1, 200), 1);
             } else {
                 GameFont.render("-", screen, x, y, Colores.get(-1, -1, -1, 200), 1, 02);
