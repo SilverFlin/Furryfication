@@ -94,6 +94,7 @@ public class Juego extends Canvas implements Runnable {
     private boolean gameOver;
     public static BufferStrategy bs;
     public static Graphics g;
+    public static boolean mascotaOn = false;
     
 
 
@@ -309,15 +310,15 @@ public class Juego extends Canvas implements Runnable {
         
     }
     
-    public  void renderLight() {
-        bs = getBufferStrategy();
-        g = bs.getDrawGraphics();
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-        mEntorno.draw((Graphics2D) g, currentPlayerX,currentPlayerY);
-        g.dispose();
-        bs.show();
-
-    }
+//    public  void renderLight() {
+//        bs = getBufferStrategy();
+//        g = bs.getDrawGraphics();
+//        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+//        mEntorno.draw((Graphics2D) g, currentPlayerX,currentPlayerY, mascotaOn);
+//        g.dispose();
+//        bs.show();
+//
+//    }
 
     public void render() {
 
@@ -457,7 +458,7 @@ public class Juego extends Canvas implements Runnable {
     }
 
     public void drawLight() {
-        mEntorno.draw((Graphics2D) g,currentPlayerX, currentPlayerY);
+        mEntorno.draw((Graphics2D) g,currentPlayerX, currentPlayerY,mascotaOn);
     }
 
 }

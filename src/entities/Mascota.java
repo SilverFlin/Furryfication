@@ -122,6 +122,15 @@ public class Mascota extends Mob {
             }
             input.Music.pressed = false;
         }
+        
+        if(input.q.isPressed()){            
+            if (Juego.mascotaOn) {
+                Juego.mascotaOn = false;
+            } else {
+                Juego.mascotaOn = true;
+            }
+            input.q.pressed = false;
+        }
 
         if (input.P.isPressed() && Juego.levelNo > 0) {
             double time = System.currentTimeMillis();

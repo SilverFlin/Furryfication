@@ -22,10 +22,10 @@ public class ManejadorEntorno {
     }
 
     public void setup() {
-        iluminacion = new Iluminacion(gp, 350);
+        iluminacion = new Iluminacion(gp, 300,400);
     }
 
-    public void draw(Graphics2D g2,int currentX, int currentY) {
-        iluminacion.draw(g2,currentX, currentY);
+    public void draw(Graphics2D g2,int currentX, int currentY,boolean mascotaOn) {
+        iluminacion.draw(g2,currentX, currentY,mascotaOn);
     }
 }

@@ -25,14 +25,15 @@ public class Iluminacion {
     Juego gp;
     BufferedImage darknessFilter;
     int circleSize;
+    int augmentedCircleSize;
     Area screenArea;
     private final int width;
     private final int height;
     private int centerX;
     private int centerY;
 
-    public Iluminacion(Juego gp, int circleSize) {
-
+    public Iluminacion(Juego gp, int circleSize, int augmentedCircleSize) {
+        this.augmentedCircleSize = augmentedCircleSize;
         this.circleSize = circleSize;
         this.gp = gp;
         width = gp.screen.width * gp.SCALE;
@@ -67,18 +68,20 @@ public class Iluminacion {
 
     }
 
-    public void draw(Graphics2D g2, int currentX, int currentY) {
+    public void draw(Graphics2D g2, int currentX, int currentY, boolean mascotaOn) {
 
+        int currentCircleSize = mascotaOn? augmentedCircleSize:circleSize;
+        
         screenArea = new Area(new Rectangle2D.Double(0, 0, width, height));
         centerX = currentX * 4;
         centerY = currentY * 4;
 
         // punto superior izquierdo del circulo
-        double x = centerX - (circleSize / 2);
-        double y = centerY - (circleSize / 2);
+        double x = centerX - (currentCircleSize / 2);
+        double y = centerY - (currentCircleSize / 2);
 
         // crear forma circulo de luz
-        Shape circleShape = new Ellipse2D.Double(x, y, circleSize, circleSize);
+        Shape circleShape = new Ellipse2D.Double(x, y, currentCircleSize,currentCircleSize);
 
         // crear area circulo de luz
         Area lightArea = new Area(circleShape);
