@@ -26,10 +26,17 @@ import gfx.Colores;
 import gfx.GameFont;
 import gfx.Screen;
 import entities.Mascota;
+import entorno.ManejadorEntorno;
+import static gamepack.Juego.bs;
+import static gamepack.Juego.image;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 import java.util.Timer;
 
 public class Level {
 
+//    public  ManejadorEntorno mEntorno = new ManejadorEntorno(this);
     private long playtime = System.currentTimeMillis();
     public static byte[] tiles;
     public static int width;
@@ -47,6 +54,8 @@ public class Level {
     public static boolean MusicOn = true;
     public static float vol = 0;
     public boolean enemigoActivado;
+    
+
 
     public static synchronized void playSound() {
         new Thread(new Runnable() {
@@ -178,7 +187,26 @@ public class Level {
 
     }
 
-    public void tick() {
+    public void tick(Juego juego, ManejadorEntorno mEntorno,Graphics g) {
+
+        if(juego.levelNo != 0) {
+//            System.out.println(player.x + " " + mascota.x);
+//            System.out.println(player.y + " " + mascota.y);
+            Juego.currentPlayerX = mascota.x;
+            Juego.currentPlayerY = mascota.y;
+
+            if (mascota.x > 110) {
+                Juego.currentPlayerX = 110;
+            }
+            if (mascota.y > 68) {
+                Juego.currentPlayerY = 68;
+            }
+        }
+        
+
+        
+//        juego.drawLight();
+
         for (Entity e : entities) {
             e.tick();
         }
@@ -205,9 +233,7 @@ public class Level {
         if (System.currentTimeMillis() - playtime >= clipSize + 10000 && MusicOn) {
             this.playSound();
             playtime = System.currentTimeMillis();
-
         }
-
     }
 
     public void renderTiles(Screen screen, int xOffset, int yOffset) {

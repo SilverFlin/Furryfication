@@ -1,5 +1,6 @@
 package entities;
 
+import entorno.ManejadorEntorno;
 import gamepack.Juego;
 import gamepack.Teclado;
 import gfx.Colores;
@@ -35,6 +36,8 @@ public class Jugador extends Mob {
     private static float vol = -28;
     long time = System.currentTimeMillis();
     long playtime = System.currentTimeMillis();
+//    public  ManejadorEntorno mEntorno = new ManejadorEntorno(Juego);    
+
 
     public Jugador(Level level, int x, int y, Teclado input) {
         super(level, "Player", x, y, 1);
@@ -217,7 +220,7 @@ public class Jugador extends Mob {
 //                	Juego.speed-=1;
 //                	Juego.xPresstime=System.currentTimeMillis();
 //                }
-        if (input.up.isPressed() && up == 0) {
+        if (input.upPlayer.isPressed() && up == 0) {
             ya -= 1;
             if (mov1 != 2 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 2;
@@ -233,7 +236,7 @@ public class Jugador extends Mob {
 
         }
 
-        if (input.down.isPressed() && down == 0) {
+        if (input.downPlayer.isPressed() && down == 0) {
             ya += 1;
             if (mov1 != 1 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 1;
@@ -248,7 +251,7 @@ public class Jugador extends Mob {
             up = 1;
 
         }
-        if (input.left.isPressed() && left == 0) {
+        if (input.leftPlayer.isPressed() && left == 0) {
             xa -= 1;
             if (mov1 != 6 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 6;
@@ -262,7 +265,7 @@ public class Jugador extends Mob {
             right = 1;
             up = 1;
         }
-        if (input.right.isPressed() && right == 0) {
+        if (input.rightPlayer.isPressed() && right == 0) {
             xa += 1;
             if (mov1 != 4 && System.currentTimeMillis() - time > Rtime) {
                 mov1 = 4;
@@ -276,22 +279,22 @@ public class Jugador extends Mob {
             left = 1;
             up = 1;
         }
-        if (!input.up.isPressed()) {
+        if (!input.upPlayer.isPressed()) {
             left = 0;
             right = 0;
             down = 0;
         }
-        if (!input.down.isPressed()) {
+        if (!input.downPlayer.isPressed()) {
             left = 0;
             right = 0;
             up = 0;
         }
-        if (!input.left.isPressed()) {
+        if (!input.leftPlayer.isPressed()) {
             up = 0;
             right = 0;
             down = 0;
         }
-        if (!input.right.isPressed()) {
+        if (!input.rightPlayer.isPressed()) {
             left = 0;
             up = 0;
             down = 0;
