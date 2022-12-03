@@ -439,7 +439,7 @@ public class Juego extends Canvas implements Runnable {
         
         g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-        drawLight();
+        if(levelNo!=0)drawLight();
         g.dispose();
         bs.show();
 

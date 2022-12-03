@@ -189,18 +189,23 @@ public class Level {
 
     public void tick(Juego juego, ManejadorEntorno mEntorno,Graphics g) {
 
-        Juego.currentPlayerX = player.x;
-        Juego.currentPlayerY = player.y;
+        if(juego.levelNo != 0) {
+//            System.out.println(player.x + " " + mascota.x);
+//            System.out.println(player.y + " " + mascota.y);
+            Juego.currentPlayerX = mascota.x;
+            Juego.currentPlayerY = mascota.y;
+
+            if (mascota.x > 110) {
+                Juego.currentPlayerX = 110;
+            }
+            if (mascota.y > 68) {
+                Juego.currentPlayerY = 68;
+            }
+        }
         
-        if (player.x > 110) {
-            Juego.currentPlayerX = 110;
-        }
-        if (player.y > 68) {
-            Juego.currentPlayerY = 68;
-        }
 
         
-        juego.drawLight();
+//        juego.drawLight();
 
         for (Entity e : entities) {
             e.tick();
