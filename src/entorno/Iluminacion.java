@@ -28,12 +28,11 @@ public class Iluminacion {
     Area screenArea;
     private final int width;
     private final int height;
-    private  int centerX;
-    private  int centerY;
-//    Graphics2D g2;
-//    private final Graphics2D g3;
+    private int centerX;
+    private int centerY;
+
     public Iluminacion(Juego gp, int circleSize) {
-        
+
         this.circleSize = circleSize;
         this.gp = gp;
         width = gp.screen.width * gp.SCALE;
@@ -41,10 +40,9 @@ public class Iluminacion {
         darknessFilter = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         // centro del circulo de luz
-//                System.out.println(Juego.currentPlayerY);
         Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
 
-       screenArea = new Area(new Rectangle2D.Double(0, 0, width, height));
+        screenArea = new Area(new Rectangle2D.Double(0, 0, width, height));
 
         centerX = 0 + (16 / 2);
         centerY = 0 + (16 / 2);
@@ -61,26 +59,19 @@ public class Iluminacion {
 
         // quitarle el circulo de luz a la pantalla
         screenArea.subtract(lightArea);
-//        System.out.println(g2);
-//        System.out.println(bs);
-            g2.setColor(new Color(0, 0, 0, 0.95f));
+        g2.setColor(new Color(0, 0, 0, 0.95f));
 
-            g2.fill(screenArea);
+        g2.fill(screenArea);
 
-            g2.dispose();
-        
-     
-                
-//        drawLight(circleSize,screenArea, (Graphics2D) g,Juego.currentPlayerX,Juego.currentPlayerY);
-        
+        g2.dispose();
+
     }
 
     public void draw(Graphics2D g2, int currentX, int currentY) {
-        
+
         screenArea = new Area(new Rectangle2D.Double(0, 0, width, height));
-        System.out.println(currentX + " " + currentY);
-        centerX = currentX;
-        centerY = currentY;
+        centerX = currentX * 4;
+        centerY = currentY * 4;
 
         // punto superior izquierdo del circulo
         double x = centerX - (circleSize / 2);
@@ -94,19 +85,9 @@ public class Iluminacion {
 
         // quitarle el circulo de luz a la pantalla
         screenArea.subtract(lightArea);
-//        System.out.println(g2);
-//        System.out.println(bs);
-            g2.setColor(new Color(0, 0, 0, 0.95f));
-
-            g2.fill(screenArea);
-
-            g2.dispose();
-//        drawLight(this.circleSize, screenArea, g2,currentX,currentY);
-    }
-
-    private void repaint( int currentX, int currentY) {
-//    
-        
+        g2.setColor(new Color(0, 0, 0, 0.95f));
+        g2.fill(screenArea);
+        g2.dispose();
     }
 
 }

@@ -188,24 +188,20 @@ public class Level {
     }
 
     public void tick(Juego juego, ManejadorEntorno mEntorno,Graphics g) {
-//        g.drawImage(image, 0, 0, juego.getWidth(), juego.getHeight(), null);
-//        System.out.println(mEntorno.iluminacion);
-        
-//        g.dispose();
-//        bs.show();
-//        System.out.println(player.x + " " + player.y);
-//        System.out.println(player.y);
+
         Juego.currentPlayerX = player.x;
         Juego.currentPlayerY = player.y;
+        
+        if (player.x > 110) {
+            Juego.currentPlayerX = 110;
+        }
+        if (player.y > 68) {
+            Juego.currentPlayerY = 68;
+        }
+
+        
         juego.drawLight();
-//        System.out.println(Juego.currentPlayerY);
-//        mEntorno.draw((Graphics2D)g,player.x,player.y);
-//        Graphics g = bs.getDrawGraphics();
-//            g.drawImage(Juego.image, 0, 0, Juego.getWidth(), Juego.getHeight(), null);
-//            mEntorno.draw((Graphics2D) g);
-//            g.dispose();
-//            bs.show();
-//            System.out.println("render isLightOn");
+
         for (Entity e : entities) {
             e.tick();
         }
@@ -233,10 +229,6 @@ public class Level {
             this.playSound();
             playtime = System.currentTimeMillis();
         }
-        
-        
-
-
     }
 
     public void renderTiles(Screen screen, int xOffset, int yOffset) {

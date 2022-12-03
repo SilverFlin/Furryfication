@@ -286,9 +286,6 @@ public class Juego extends Canvas implements Runnable {
         tickCount++;
 
         level.tick(this,mEntorno,g);
-//        bs.show();
-
-//        renderLight();
        
         if (System.currentTimeMillis() - StartTime > 120000 && levelNo > 0 && !IsPaused) {
             level.dead = true;
@@ -328,16 +325,7 @@ public class Juego extends Canvas implements Runnable {
         if (bs == null) {
             createBufferStrategy(3);
             return;
-        }
-//        if(isLightOn) {
-//            Graphics g = bs.getDrawGraphics();
-//            g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-//            mEntorno.draw((Graphics2D) g);
-//            g.dispose();
-//            bs.show();
-//            System.out.println("render isLightOn");
-//            return;
-//        }
+        } 
         
         int xOffset = level.player.x - (screen.width / 2);
         int yOffset = level.player.y - (screen.height / 2);
@@ -450,7 +438,6 @@ public class Juego extends Canvas implements Runnable {
 
         
         g = bs.getDrawGraphics();
-//        System.out.println("aaa");
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         drawLight();
         g.dispose();
